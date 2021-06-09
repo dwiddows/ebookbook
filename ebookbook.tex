@@ -1,0 +1,28 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Rewritten / pared down by Dominic to have just what I understand / need.
+
+\documentclass[pagesize=auto,bibliography=totocnumbered]{scrbook}
+
+\input{lib/packages}
+\input{lib/commands}
+
+\title{Southeast Asia: A Visitor's History}
+
+\begin{document}
+
+\input{cover_page.tex}
+
+\nextpage
+
+\tableofcontents
+
+\input{chapters/introduction} 
+
+\backmatter
+
+\nextpage
+
+\bibliographystyle{apalike}
+\bibliography{bib/southeast_asia}
+
+\end{document}
