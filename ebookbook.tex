@@ -7,7 +7,7 @@
 \input{lib/commands}
 
 % This line stops the insertion of extra blank pages between chapters.
-\KOMAoptions{twoside=false}
+\ifdefined\HCode{\KOMAoptions{twoside=false}} \fi
 
 \title{\latex to eBook 2021: The Book About Itself}
 

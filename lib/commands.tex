@@ -1,5 +1,4 @@
 % This file is for commands / macros / functions. 
-% Try to make sure that everything with a conditional such as \ifdefined\HCode goes in this file.
 
 \newcommand{\latex}{\LaTeX\xspace}
 
@@ -7,6 +6,7 @@
 \ifdefined\HCode {
   \HCode{<mbp:pagebreak />}}
 \else
-  % \newpage pdflatex leaves blank page anyway
+  \newpage
 \fi
 }
+
