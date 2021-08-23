@@ -1,4 +1,4 @@
-%% The end to end process: second chapter.
+% The end to end process: second chapter.
 
 \chapter{End to End: From Source to e-reader}
 
@@ -57,12 +57,51 @@ of commands you'll need to run some other way.
 So the next step is to run \texttt{./build.sh} and ideally it should
 typeset a copy of this book.
 
+If this doesn't work, you may need to find and install some
+\texttt{pdflatex} and most importantly \texttt{htlatex} programs that
+work on your machine.
+
 %%
 \section{From HTML to ePub ... or Mobi}
 
-The most important output from the previous step is a file called \texttt{ebookbook.html}.
-This is really formatted for display as a webpage in a browser. This is different
-from the more common use of \tex to make documents such as academic papers, which are
-nowadays normally created as PDF files.
+The most important output from the previous step is a file called
+\texttt{ebookbook.html}.  This is formatted for display as a webpage
+in a browser. This is different from the more common use of \tex to
+make documents such as academic papers, which are nowadays normally
+created as PDF files. An HTML file is a collection of content (for
+example, words and images to display), and typesetting suggestions
+(for example, make this text a heading, and make this image 40\% of
+the screen width). This is different from a PDF file, which has
+precise instructions about how big to make each character and which
+page to put it on. So it makes sense that HTML is more like an eBook:
+instead of saying what text will appear on which page, it gives
+directives about what text should be bigger and smaller, and this
+combines with the user's device settings to decide which page it
+should appear on.
+
+So the \texttt{ebookbook.html} file (rather than the corresponding
+\texttt{pdf} file or any other page-layout format) will be used to
+create your eBook format. 
+
+You can turn your HTML file form a webpage into an eBook by installing
+and using a converter such as Amazon's {\em Kindle Previewer} tool.
+There are a range of such converters and previewers, targetting a
+variety of formats, and this is another place where the complexity of
+electronic publication is obvious. Like saving an image as a
+\texttt{.jpg}, \texttt{.gif} or \texttt{.png}, you'll need to select a
+format to convert to, and options include:
+
+\begin{itemize}
+  \item \texttt{epub} is a cross-platform format that it supposed to
+    be used for any electornic book.
+  \item \texttt{mobi} is an old Amazon Kindle format --- and it
+    happens to be the one you can use for e-mailing files to your Kindle.
+\end{itemize}
+
+%%
+\section{Previewing Your Book on an e-Reader Device}
+
+TODO
+
 
 
