@@ -26,13 +26,56 @@ addresses to visit and which buttons to click on can go stale very
 quickly. The third is that this book does assume that the reader has
 some experience with and / or tolerance for figuring out a certain
 amount of installation and troubleshooting on computers. If not, there are
-more constrained off-the-shelf tool that will be easier to get started with
+more constrained off-the-shelf tools that will be easier to get started with
 than \latex.
+
+%%
+\section{Install Dependencies}
+
+Typically when you want to use a new piece of software, it has
+dependencies --- other libraries and packages it needs for some of its
+functionality. For end-user applications, these are usually bundled
+together so that everything works `out of the box'. For programming
+tools, there's normally some system to check which dependencies you
+already have, and to install only the new ones that you need. How this
+works depends to some extent on what platform you're using. This book
+is not ambitious enough to be a manual on cross-platform
+interoperability, so here we'll just list the dependencies you'll need
+to find and install.
+
+These include:
+
+\begin{itemize}
+\item A \latex system, including a program called \texttt{htlatex}.
+  This is crucial for making HTML output, as described in Section \ref{sec:html2epub}.
+\item Some ebook converter software. The one recommended below is
+  \texttt{ebook-convert}, from Calibre (see
+  \url{https://manual.calibre-ebook.com/ebook-convert.html}, or just
+  search the web).
+\item Some e-reader or previewer software, such as a Kindle device or
+  app, or another ebook app such as Calibre (see above). You'll want
+  this for seeing how your book looks `for real' (though of course,
+  not all ebook apps look exactly alike.
+\item (Recommended) A shell program that runs bash scripts so that you
+  can run the \texttt{build.sh} command. If you don't alread have a
+  terminal where you can run bash or a close equivalent, it's probably
+  worth installing and using, and if that instruction sounds
+  difficult, the rest of the process may be hard.
+\end{itemize}
+
+Every modern operating system --- basically Windows, Linux, MacOS, and
+similar variants --- has a variety of package installation tools.
+Some of the above can be done at the command-line, sometimes it's
+easier to download and install something directly from a provider's
+website.
+
+The best place to keep links to such dependencies is the 
+github project wiki at \url{https://github.com/dwiddows/ebookbook/wiki}.
 
 %%
 \section{Access and Build the \latex Source}
 
-First of all, you'll want to get a copy of the source code for this
+Next, you'll want to get a copy of the source code for this
 book. (We won't split hairs about whether \latex sources count as
 `code'. It gives instructions to machines, it's easy to make mistakes
 that show up as error messages, and it's reviewed and stored in source
@@ -55,14 +98,18 @@ running a compatible shell, the \texttt{build.sh} will at least give a list
 of commands you'll need to run some other way.
 
 So the next step is to run \texttt{./build.sh} and ideally it should
-typeset a copy of this book.
+typeset a copy of this book. If the \texttt{ebook-convert} command is
+available it should even make the ebook files described in the next
+section.
 
 If this doesn't work, you may need to find and install some
-\texttt{pdflatex} and most importantly \texttt{htlatex} programs that
-work on your machine.
+\texttt{pdflatex} and most importantly \texttt{make4ht} or
+\texttt{htlatex} programs that work on your machine. (See the
+Dependencies section above.)
 
 %%
 \section{From HTML to ePub ... or Mobi}
+\label{sec:html2epub}
 
 The most important output from the previous step is a file called
 \texttt{ebookbook.html}.  This is formatted for display as a webpage
@@ -84,7 +131,8 @@ So the \texttt{ebookbook.html} file (rather than the corresponding
 create your eBook format. 
 
 You can turn your HTML file form a webpage into an eBook by installing
-and using a converter such as Amazon's {\em Kindle Previewer} tool.
+and using a converter such as Calibre \texttt{ebook-convert}.
+Amazon's {\em Kindle Previewer} tool.
 There are a range of such converters and previewers, targetting a
 variety of formats, and this is another place where the complexity of
 electronic publication is obvious. Like saving an image as a
@@ -93,15 +141,94 @@ format to convert to, and options include:
 
 \begin{itemize}
   \item \texttt{epub} is a cross-platform format that it supposed to
-    be used for any electornic book.
+    be used for any electronic book.
   \item \texttt{mobi} is an old Amazon Kindle format --- and it
     happens to be the one you can use for e-mailing files to your Kindle.
 \end{itemize}
 
+The \texttt{build.sh} script that comes with this book uses
+\texttt{ebook-convert} and creates both \texttt{epub} and
+\texttt{mobi} files as output. This also takes command-line
+arguments so that you can specify metadata like the author name
+and cover image:
+
+\begin{quote}
+\footnotesize
+\flushleft
+\texttt{ebook-convert ebookbook.html ebookbook.epub --cover images/cover.jpg --authors "YOUR NAME" --language English}
+\end{quote}
+
 %%
 \section{Previewing Your Book on an e-Reader Device}
 
-TODO
+Hopefully by now you have an ebook. Or at least, a file called something like
+\texttt{ebookbook.epub}. So how do you {\em read} your book?
+
+For this you'll need an e-reader --- perhaps an app on your computer or phone,
+or an e-reader device such as a Kindle.
+
+Assuming that most of your writing will be on a computer, that's
+probably the first place you'll want to see your work. For example, I
+usually open the Calibre app and load the epub file, or do both at
+once with the command \texttt{calibre ebookbook.epub}. This gives 
+the satisfying result shown in Figure \ref{fig:calibre_screenshot}.
+
+\begin{figure}[ht]
+\begin{center}
+  \caption{Book thumbnail image and cover page in the Calibre e-reader}
+  \label{fig:calibre_screenshot}
+  \includegraphics[width=0.8\linewidth]{images/calibre_screenshot.png}
+\end{center}
+\end{figure}
+
+To view on an e-reader device or phone, you often have to send it to
+the device or load it on in some way --- again, there are a range of
+methods.
+
+For Amazon Kindles, you need to find / set up an email address for the
+device itself, and send the book to that email address. As an extra
+complexity, this method only works using the older \texttt{.mobi}
+version.  Also Kindle preloads like this do not (at the moment)
+display the cover page of the book in your library or menu page,
+because Amazon retrieves this information for {\em published} books
+from elsewhere. So the preview in the library view is somewhat
+disappointing, but it works (Figure \ref{fig:kindle_screenshot}).
+
+\begin{figure}[ht]
+\begin{center}
+  \caption{Book thumbnail image loaded onto a Kindle}
+  \label{fig:kindle_screenshot}
+  \includegraphics[width=0.4\linewidth]{images/kindle_screenshot.png}
+\end{center}
+\end{figure}
+
+%%
+\section{Make it Your Own!}
+
+Hopefully by now you're at the point where there is an epub file that you can easily read on some e-reader device or app. 
+
+The next thing you should do is {\em change something}. Change the title in the \texttt{cover\_page.tex} file from `\latex to eBook 2021'
+to whatever title you want. Rerun the steps above and hopefully you'll see exactly what you intended: a copy of the ebook, but with
+your title instead.
+
+At this point you're off to the races. Doesn't mean that it's all plain sailing from here, there will doubtless be glitches and hurdles along the way.
+But the main thing is that you have a template, examples of several \latex constructs that work with ebooks, and you're able to start turning this
+into your own book. You may want to save your work separately at this point, call the project something else, and if you use source control,
+start checking in your work in some way that makes it clear that it's a new project, not a work-in-progress on the old project that's intended to be
+merged back in at some point.
+
+Experiment with removing directives to \texttt{\\input} different chapters, and watch the book get shorter. Try changing image files to some other graphic
+and make sure they change appropriately. And try editing the AUTHOR in the \texttt{build.sh} file and make sure the right name shows up when the book is viewed in an e-reader.
+
+If this works, you can be pretty confident that your book is on the right track. You'll be able to organize the content into \tex files, image files, etc., and create an ebook!
+
+
+%%%
+\section{Publication}
+
+This section will be written just about last!
+
+
 
 
 

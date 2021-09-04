@@ -1,5 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Rewritten / pared down by Dominic to have just what I understand / need.
+% This file is the "main" or root file for the book. It describes what packages
+% and content should be included in what order.
 
 \documentclass[pagesize=auto,bibliography=totocnumbered]{scrbook}
 
@@ -9,22 +10,18 @@
 % This line stops the insertion of extra blank pages between chapters.
 \ifdefined\HCode{\KOMAoptions{twoside=false}} \fi
 
-\title{\latex to eBook 2021: The Book About Itself}
-
 \begin{document}
 
+% Title and author are written down in the cover_page.tex file, and author
+% appears also as an argument to the ebook-convert command in the build.sh file.
 \input{cover_page.tex}
 
-\nextpage
 \tableofcontents
 
 \nextpage
 \input{chapters/introduction} 
-\nextpage
 \input{chapters/end_to_end}
-\nextpage
 \input{chapters/typesetting_topics}
-\nextpage
 \input{chapters/tex_for_ebooks_problems}
 
 \nextpage
