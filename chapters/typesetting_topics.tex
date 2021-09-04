@@ -17,13 +17,13 @@ the \tex source for this chapter starts with:
 \label{chapter:typesetting}
 \end{verbatim}
 
-Then if I want to refer to the chapter, I write \verb|Chapter \ref{chapter:typesetting}| which
-gets rendered as `Chapter \ref{chapter:typesetting}'. Adding \verb|\label| commands for tables and figures
+Then if I want to refer to the chapter, I write \smalltt{Chapter \textbackslash ref\{chapter:typesetting\}} which
+gets rendered as `Chapter \ref{chapter:typesetting}'. Adding \smalltt{label} commands for tables and figures
 works in the same way.
 
 This isn't rocket science, but if you've ever tried
 renumbering by-hand, you know how valuable this is! Similarly, bibliographic references such as
-\verb|\cite{knuth1984texbook}| work correctly, giving a citation looking like \cite{knuth1984texbook}.
+\smalltt{\textbackslash cite\{knuth1984texbook\}} work correctly, giving a citation looking like \cite{knuth1984texbook}.
 I dare say there are plenty of corner cases with bibliography packages, but so far \textsc{BibTeX} has worked
 fine for this book.
 
@@ -31,7 +31,7 @@ fine for this book.
 \section{Graphics}
 
 Nearly all eBooks have graphics in them somewhere, even if just for a cover page. 
-The \texttt{graphicx} works well for this, so for example, the cover image for the title page
+The \smalltt{graphicx} works well for this, so for example, the cover image for the title page
 of this book is included using the command:
 
 \begin{verbatim}
@@ -42,21 +42,21 @@ Typically for webpages and eBooks, the size of images is expected to vary with t
 so using a context-sensitive width like a proportion of the linewidth is more appropriate than a fixed-width
 declaration like `10cm'. Many eReaders enable users to click on images to see them in more detail, which helps.
 
-One frequent problem is that HTML typesetting using \texttt{htlatex} or a similar process doesn't always preserve the
+One frequent problem is that HTML typesetting using \smalltt{htlatex} or a similar process doesn't always preserve the
 aspect ratio of your images. For example, the same setting may be used for width and height, making all images square.
-The problem is solved by adding a bounding box file using the \texttt{extractbb} command, which is typically included
-with \tex distributions. This step is included in the project's \texttt{build.sh} script, at least for \smalltt{.jpg} and
-\texttt{.png} files, and it can easily be extended to more filetypes. Or you can run \smalltt{extractbb -x \$IMAGE} on these files
+The problem is solved by adding a bounding box file using the \smalltt{extractbb} command, which is typically included
+with \tex distributions. This step is included in the project's \smalltt{build.sh} script, at least for \smalltt{.jpg} and
+\smalltt{.png} files, and it can easily be extended to more filetypes. Or you can run \smalltt{extractbb -x \$IMAGE} on these files
 yourself.
 
-Images are often put in the \latex \texttt{figure} environment, which can include captions and a label for references.
+Images are often put in the \latex \smalltt{figure} environment, which can include captions and a label for references.
 For example, the map in Figure \ref{fig:sea_map} is created using the commands:
 
 \begin{verbatim}
 \begin{figure}
 \begin{center}
 \caption{A map showing countries in Southeast Asia, 
-         made using the \texttt{pilmaps} library}
+         made using the \smalltt{pilmaps} library}
   \label{fig:sea_map}
   \includegraphics[width=\linewidth]{images/sea_countries.png}
 \end{center}
@@ -66,17 +66,17 @@ For example, the map in Figure \ref{fig:sea_map} is created using the commands:
 \begin{figure}
 \begin{center}
 \caption{A map showing countries in Southeast Asia, 
-         made using the \texttt{pilmaps} library}
+         made using the \smalltt{pilmaps} library}
   \label{fig:sea_map}
   \includegraphics[width=\linewidth]{images/sea_countries.png}
 \end{center}
 \end{figure}
 
 From here, the figure can be referenced using the command 
-\verb|\ref{fig:sea_map}|. (And if you happen to be looking for a free mapping tool in python that
-with low-level, hands-on rendering control, feel free to try \url{https://github.com/dwiddows/pilmaps}.) 
+\smalltt{\textbackslash ref\{fig:sea\_map\}}. (And if you happen to be looking for a free mapping tool in python that
+with low-level, hands-on rendering control, feel free to try {\small \url{https://github.com/dwiddows/pilmaps}}.) 
 So far I haven't found an effective way of controlling the placement of figures --- for example, directives
-like \verb|\begin[ht]{figure}| don't affect the HTML or the ePub output.
+like \smalltt{\textbackslash begin[ht]\{figure\}} don't affect the HTML or the ePub output.
 
  %%
 \section{Tables}
