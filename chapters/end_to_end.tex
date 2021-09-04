@@ -1,16 +1,18 @@
 % The end to end process: second chapter.
 
-\chapter{End to End: From Source to e-reader}
+\chapter{End to End: From Source to eReader}
 
 We'll start with the end-to-end process for making a book you can read
-on your e-reader device. Checking that you can do this, change the title,
+on your eReader device. Checking that you can do this, change the title,
 add or remove chapters, and see the changes you've made reflected on your 
-e-reader, will hopefully be the best encouragement to work through more
+eReader, will hopefully be the best encouragement to work through more
 of this book, focusing on the topics that are most useful for your own book.
 
 \begin{figure}
-\includegraphics[width=\linewidth]{images/pipeline.png}
-\caption{Steps in the pipeline for shipping this ebook}
+\begin{center}
+\includegraphics[width=1.2\linewidth]{images/pipeline.png}
+\caption{Steps in the pipeline for shipping this eBook}
+\end{center}
 \label{fig:pipeline}
 \end{figure}
 
@@ -25,9 +27,9 @@ this way. The second is that very specific instructions of which web
 addresses to visit and which buttons to click on can go stale very
 quickly. The third is that this book does assume that the reader has
 some experience with and / or tolerance for figuring out a certain
-amount of installation and troubleshooting on computers. If not, there are
-more constrained off-the-shelf tools that will be easier to get started with
-than \latex.
+amount of installation and troubleshooting on computers. If not, try one of the
+more constrained off-the-shelf tools that are easier to get started with
+than \latex. 
 
 %%
 \section{Install Dependencies}
@@ -38,26 +40,25 @@ functionality. For end-user applications, these are usually bundled
 together so that everything works `out of the box'. For programming
 tools, there's normally some system to check which dependencies you
 already have, and to install only the new ones that you need. How this
-works depends to some extent on what platform you're using. This book
-is not ambitious enough to be a manual on cross-platform
-interoperability, so here we'll just list the dependencies you'll need
-to find and install.
+works depends partly on what platform you're using. Here we'll just list
+the dependencies you'll need to find and install.
 
 These include:
 
 \begin{itemize}
-\item A \latex system, including a program called \texttt{htlatex}.
-  This is crucial for making HTML output, as described in Section \ref{sec:html2epub}.
-\item Some ebook converter software. The one recommended below is
+\item A \latex system, including a program called \texttt{make4ht} or the older \texttt{htlatex}.
+  This is crucial for making HTML output, as described in Section
+  \ref{sec:html2epub}.
+\item Some eBook converter software. The one recommended below is
   \texttt{ebook-convert}, from Calibre (see
-  \url{https://manual.calibre-ebook.com/ebook-convert.html}, or just
+  \url{https://manual.calibre-eBook.com/ebook-convert.html}, or just
   search the web).
-\item Some e-reader or previewer software, such as a Kindle device or
-  app, or another ebook app such as Calibre (see above). You'll want
+\item Some eReader or previewer software, such as a Kindle device or
+  app, or another eBook app such as Calibre (see above). You'll want
   this for seeing how your book looks `for real' (though of course,
-  not all ebook apps look exactly alike.
+  not all eBook apps look exactly alike.
 \item (Recommended) A shell program that runs bash scripts so that you
-  can run the \texttt{build.sh} command. If you don't alread have a
+  can run the \texttt{build.sh} command. If you don't already have a
   terminal where you can run bash or a close equivalent, it's probably
   worth installing and using, and if that instruction sounds
   difficult, the rest of the process may be hard.
@@ -89,17 +90,17 @@ downloading the code using some visual client software.
 List the contents of this directory and check that you can see the
 files \texttt{ebookbook.tex} and \texttt{build.sh}. The first of these
 is the main \tex document that lays out how to combine the other files
-into an ebook.  The second is a build script --- on platforms with
+into an eBook.  The second is a build script --- on platforms with
 bash or a compatible shell installed, you should be able to run just
 \texttt{./build.sh} and get most of the book built using one
 command. Or at least, to begin with, you should get error messages
 telling you if anything is missing and needs to be installed. If you're not
-running a compatible shell, the \texttt{build.sh} will at least give a list
-of commands you'll need to run some other way.
+running a compatible shell, the \texttt{build.sh} at least lists
+the commands you'll need to run some other way.
 
 So the next step is to run \texttt{./build.sh} and ideally it should
 typeset a copy of this book. If the \texttt{ebook-convert} command is
-available it should even make the ebook files described in the next
+available it should even make the eBook files described in the next
 section.
 
 If this doesn't work, you may need to find and install some
@@ -161,11 +162,11 @@ and cover image:
 %%
 \section{Previewing Your Book on an e-Reader Device}
 
-Hopefully by now you have an ebook. Or at least, a file called something like
+Hopefully by now you have an eBook. Or at least, a file called something like
 \texttt{ebookbook.epub}. So how do you {\em read} your book?
 
-For this you'll need an e-reader --- perhaps an app on your computer or phone,
-or an e-reader device such as a Kindle.
+For this you'll need an eReader --- perhaps an app on your computer or phone,
+or an eReader device such as a Kindle.
 
 Assuming that most of your writing will be on a computer, that's
 probably the first place you'll want to see your work. For example, I
@@ -173,15 +174,15 @@ usually open the Calibre app and load the epub file, or do both at
 once with the command \texttt{calibre ebookbook.epub}. This gives 
 the satisfying result shown in Figure \ref{fig:calibre_screenshot}.
 
-\begin{figure}[ht]
+\begin{figure}
 \begin{center}
-  \caption{Book thumbnail image and cover page in the Calibre e-reader}
-  \label{fig:calibre_screenshot}
-  \includegraphics[width=0.8\linewidth]{images/calibre_screenshot.png}
+\caption{Book thumbnail image and cover page in the Calibre eReader}
+\label{fig:calibre_screenshot}
+\includegraphics[width=\linewidth]{images/calibre_screenshot.png}
 \end{center}
 \end{figure}
 
-To view on an e-reader device or phone, you often have to send it to
+To view on an eReader device or phone, you often have to send it to
 the device or load it on in some way --- again, there are a range of
 methods.
 
@@ -194,39 +195,52 @@ because Amazon retrieves this information for {\em published} books
 from elsewhere. So the preview in the library view is somewhat
 disappointing, but it works (Figure \ref{fig:kindle_screenshot}).
 
-\begin{figure}[ht]
+\begin{figure}
 \begin{center}
   \caption{Book thumbnail image loaded onto a Kindle}
   \label{fig:kindle_screenshot}
-  \includegraphics[width=0.4\linewidth]{images/kindle_screenshot.png}
-\end{center}
+  \includegraphics[width=0.6\linewidth]{images/kindle_screenshot.png}
+ \end{center}
 \end{figure}
 
 %%
 \section{Make it Your Own!}
 
-Hopefully by now you're at the point where there is an epub file that you can easily read on some e-reader device or app. 
+Hopefully by now you're at the point where there is an epub file that you can easily read on some eReader device or app. 
 
 The next thing you should do is {\em change something}. Change the title in the \texttt{cover\_page.tex} file from `\latex to eBook 2021'
-to whatever title you want. Rerun the steps above and hopefully you'll see exactly what you intended: a copy of the ebook, but with
+to whatever title you want. Rerun the steps above and hopefully you'll see exactly what you intended: a copy of the eBook, but with
 your title instead.
 
 At this point you're off to the races. Doesn't mean that it's all plain sailing from here, there will doubtless be glitches and hurdles along the way.
-But the main thing is that you have a template, examples of several \latex constructs that work with ebooks, and you're able to start turning this
+But the main thing is that you have a template, examples of several \latex constructs that work with eBooks, and you're able to start turning this
 into your own book. You may want to save your work separately at this point, call the project something else, and if you use source control,
 start checking in your work in some way that makes it clear that it's a new project, not a work-in-progress on the old project that's intended to be
 merged back in at some point.
 
 Experiment with removing directives to \texttt{\\input} different chapters, and watch the book get shorter. Try changing image files to some other graphic
-and make sure they change appropriately. And try editing the AUTHOR in the \texttt{build.sh} file and make sure the right name shows up when the book is viewed in an e-reader.
+and make sure they change appropriately. And try editing the AUTHOR in the \texttt{build.sh} file and make sure the right name shows up when the book is viewed in an eReader.
 
-If this works, you can be pretty confident that your book is on the right track. You'll be able to organize the content into \tex files, image files, etc., and create an ebook!
+If this works, you can be pretty confident that your book is on the right track. You'll be able to organize the content into \tex files, image files, etc., and create an eBook!
 
 
 %%%
 \section{Publication}
 
-This section will be written just about last!
+This section will be written just about last! Nearly all of this book is about how to create and preview eBook files, and this is like a software development process
+--- you should be able to run the pipeline over and over again and keep testing that the change you made had the desired effect.
+
+Publishing and marketing your book is a different story: you'll basically be using an online browser app, signing up for accounts, uploading files, filling in forms,
+you'll eventually click "submit", and hopefully see your book available for download / purchase after a short while (like a couple of days). Here for now
+I'll mention some of the steps and options, but refer the reader to the github wiki and from there, other online resources.
+
+How to:
+\begin{itemize}
+\item Upload your book to the Amazon Kindle store using Kindle Direct Publishing.
+\item Consider alternatives including Barnes \& Noble and Apple.
+\item Consider pricing and royalties --- up to you!
+\item Set preview limits?
+\end{itemize}
 
 
 

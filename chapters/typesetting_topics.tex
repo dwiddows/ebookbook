@@ -1,14 +1,163 @@
 %%
 \chapter{Typesetting Topics}
+\label{chapter:typesetting}
 
+This chapter will go through some of the \tex features you'll probably want to use at some point.
+So far, {\em most} of the things I usually do with \tex can be made to work for eBook outputs,
+but there are lots of commands and options that {\em don't} work and you need to know which
+variants to use.
+
+\section{References and Citations}
+
+One of the easy things that `just works' most of the time in \latex is references. For example,
+the \tex source for this chapter starts with:
+
+\begin{verbatim}
+\chapter{Typesetting Topics}
+\label{chapter:typesetting}
+\end{verbatim}
+
+Then if I want to refer to the chapter, I write \verb|Chapter \ref{chapter:typesetting}| which
+gets rendered as `Chapter \ref{chapter:typesetting}'. Adding \verb|\label| commands for tables and figures
+works in the same way.
+
+This isn't rocket science, but if you've ever tried
+renumbering by-hand, you know how valuable this is! Similarly, bibliographic references such as
+\verb|\cite{knuth1984texbook}| work correctly, giving a citation looking like \cite{knuth1984texbook}.
+I dare say there are plenty of corner cases with bibliography packages, but so far \textsc{BibTeX} has worked
+fine for this book.
+
+%%
+\section{Graphics}
+
+Nearly all eBooks have graphics in them somewhere, even if just for a cover page. 
+The \texttt{graphicx} works well for this, so for example, the cover image for the title page
+of this book is included using the command:
+
+\begin{verbatim}
+\includegraphics[width=0.8\linewidth]{images/cover.png}
+\end{verbatim}
+
+Typically for webpages and eBooks, the size of images is expected to vary with the page size and settings,
+so using a context-sensitive width like a proportion of the linewidth is more appropriate than a fixed-width
+declaration like `10cm'. Many eReaders enable users to click on images to see them in more detail, which helps.
+
+One frequent problem is that HTML typesetting using \texttt{htlatex} or a similar process doesn't always preserve the
+aspect ratio of your images. For example, the same setting may be used for width and height, making all images square.
+The problem is solved by adding a bounding box file using the \texttt{extractbb} command, which is typically included
+with \tex distributions. This step is included in the project's \texttt{build.sh} script, at least for \smalltt{.jpg} and
+\texttt{.png} files, and it can easily be extended to more filetypes. Or you can run \smalltt{extractbb -x \$IMAGE} on these files
+yourself.
+
+Images are often put in the \latex \texttt{figure} environment, which can include captions and a label for references.
+For example, the map in Figure \ref{fig:sea_map} is created using the commands:
+
+\begin{verbatim}
+\begin{figure}
+\begin{center}
+\caption{A map showing countries in Southeast Asia, 
+         made using the \texttt{pilmaps} library}
+  \label{fig:sea_map}
+  \includegraphics[width=\linewidth]{images/sea_countries.png}
+\end{center}
+\end{figure}
+\end{verbatim}
+  
+\begin{figure}
+\begin{center}
+\caption{A map showing countries in Southeast Asia, 
+         made using the \texttt{pilmaps} library}
+  \label{fig:sea_map}
+  \includegraphics[width=\linewidth]{images/sea_countries.png}
+\end{center}
+\end{figure}
+
+From here, the figure can be referenced using the command 
+\verb|\ref{fig:sea_map}|. (And if you happen to be looking for a free mapping tool in python that
+with low-level, hands-on rendering control, feel free to try \url{https://github.com/dwiddows/pilmaps}.) 
+So far I haven't found an effective way of controlling the placement of figures --- for example, directives
+like \verb|\begin[ht]{figure}| don't affect the HTML or the ePub output.
+
+ %%
+\section{Tables}
+
+Basic tables typeset just fine. For example, the following \latex gives the output in Table \ref{tab:artist_works}.
+
+\begin{verbatim}
+\begin{table}
+  \centering
+  \begin{tabular}{|c|l|}
+    \hline
+    \textbf{Artist} & \textbf{Great Works} \\
+    \hline
+    Leonardo da Vinci & The Mona Lisa \\
+    Charlie Watts & Satisfaction \\
+    \hline
+  \end{tabular}
+  \caption{Contributions to modern civilization}
+  \label{tab:artist_works}
+\end{table}
+\end{verbatim}
+
+\begin{table}
+ \begin{center}
+  \begin{tabular}{|c|l|}
+    \hline
+    \textbf{Artist} & \textbf{Great Works} \\
+    \hline
+    Leonardo da Vinci & The Mona Lisa \\
+    Charlie Watts & Satisfaction \\
+    \hline
+  \end{tabular}
+  \caption{Contributions to modern civilization}
+  \label{tab:artist_works}
+ \end{center}
+\end{table}
+
+With standard \latex it is easy to make tables that are too big for pages and typeset poorly for a variety of reasons.
+I expect this can be even more of a problem with small-screen eBooks, so you'll want to design any tables accordingly
+and check output carefully.
+
+%%
 \section{Equations}
 
-Mathematical equations can be frustrating to typeset.
+One of the great draws of \latex is that it's easy to typeset mathematical notation like formulae and equations.
 
-Let's see if
-\begin{verbatim}\[ e^{i\pi} = -1 \]\end{verbatim}
-works.
+So far these look to work well in HTML and eBook formats. The commands below give the subsequent
+renderings of Euler's formula and Fourier series:
+
+\begin{verbatim}
+\[ e^{ix} = \cos x + i \sin x \]
+\[ f(x) = \sum_{0}^{\infty}a_k \sin(kx) + b_k \cos(kx). \]
+\end{verbatim}
 
 \[ e^{i\pi} = -1 \]
+\[ f(x) = \sum_{0}^{\infty}a_k \sin(kx) + b_k \cos(kx). \]
 
+Array environments for typesetting rows and columns in equations also work, for example:
 
+\[
+u = \left( \begin{array}{c} 1 \\ 0 \\ -2 \end{array} \right) \qquad
+v = \left( \begin{array}{c} 2 \\ -1 \\ 3 \end{array} \right) \qquad
+u^T v = 2 + 0 - 6 = -4 \qquad
+u v^T = \left( \begin{array}{ccc} 2 & -1 & 3 \\ 0 & 0 & 0 \\ -4 & 2 & -6 \end{array} \right)
+\]
+
+This set of equations may become typeset in a smaller font than those above, to fit them
+horizontally on a small screen. If these start to get too small, consider breaking lines up
+when typesetting mathematics for eBooks.
+
+%%
+\section{Contents and Index}
+
+The table of contents should get typeset entirely automatically if you use this template.
+
+The story of how traditional indexes and concordances influenced the design of the inverted
+indexes used by search engines is quite fascinating, as told by \citet[Ch 1]{witten1999gigabytes}.
+Since this story is so advanced by now, I'm not even bothering with an explicit index section ---
+if the reader wants to looks something up, use the Search button! If you want to make a paper
+version of your book as well, however, you may want to reconsider this.
+
+If you do want to make a paper book as well, it may be worth trying a
+more sophisticated template such as the one that comes with Clemens
+Lode's book on using \latex for books and eBooks \citep{lode2019better}.

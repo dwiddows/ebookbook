@@ -5,32 +5,27 @@
 Considering writing a book? Good for you! Publishing a book is easier and cheaper today 
 that it ever has been. 
 
-If you know what you want to write about, the next step (and in some cases, the 
-hardest step!) is getting started. The most important part is the material itself: 
-for paragraph text, you can write a document in any number of text and document editors, 
-and figure out how to format this as a book later. But sooner or later, 
-the question of how to turn this into a book. That could mean a paper book, 
+If you know what you want to write about, the next step (and sometimes the 
+hardest step) is getting started. The most important part is the material itself: 
+you can write pragraphs in any number of text and document editors, 
+and figure out how to format the material as a book later. But sooner or later, 
+the question arises of how to turn the material into a book format. That could mean a paper book, 
 which requires physical resources for printing and distributing. Or it could mean
-an eBook, to be read on an e-reader such as an Amazon Kindle or Kobo Clara.
+an eBook, to be read on an eReader such as an Amazon Kindle or Kobo Clara.
 
-So how do I turn my document into an eBook? This is a very short book demonstrating one 
-way to do this, and if you're reading this on an e-reader, that shows that it worked!
+So how do you turn your document into an eBook? This is a very short book demonstrating one 
+way to do this, and if you're reading this on an eReader, that shows
+that it already worked at least once --- for this book!
 
 To start with, I chose to use the \latex typesetting system. 
-The original \tex was created by the famous computer scientist Donald Knuth \cite{knuth1984texbook}, and added to by Leslie Lamport to make \latex \cite{lamport1985i1}.
-and is used throughout scientific fields to write papers and books. There are many
+The original \tex was created by the famous computer scientist Donald Knuth \citep{knuth1984texbook},
+and added to by Leslie Lamport to make \latex \citep{lamport1985latex}.
+\latex is used throughout scientific fields to write papers and books. There are many
 reasons for preferring \latex to one of the more `point, click, and type' text editors:
 it handles figures, tables, chapters, sections, headings, cross-references, 
 bibliographic references, mathematical equations, and many more things that can be 
-notoriously irritating and time consuming. And it's easy to use different typesetting
-programs and commands to create all sorts of output from \latex, including eBooks.
-
-%%
-\BOX{Other Versions}{
-  This box is to partly to check that side boxes work --- see the \texttt{\textbackslash BOX} command.
-  It's also to tell the reader that the source code for this book can be found on
-  github (\url{https://github.com/dwiddows/ebookbook}) and overleaf. 
-}
+notoriously irritating and time consuming to get right. And it's easy to use different typesetting
+programs and commands to create all sorts of output from \latex input, including eBooks.
 
 If \tex and \latex are entirely unfamiliar to you, even this automation and flexibility 
 may not make it the best choice for you, because there is quite a technical 
@@ -38,13 +33,14 @@ learning-curve for \latex. It's not just writing text, it's writing commands tel
 typesetting program how to `compile' the output document --- in many ways, \latex
 feels much more like programming than writing a Google or Microsoft Word document. But if
 \latex is something you've already used to write a dissertation or paper, you're 
-probably well aware of its benefits (and hassles). 
+probably well aware of its benefits (and its hassles). 
 
 In summary, if you've used \latex to write papers, now you want to write an eBook,
-and you need to figure out how to do this, then this little book might be ideal.
+and you need to figure out how to do this, then this little book and
+the open source template that it comes from might be ideal.
 There are alternatives --- alternative ways to make eBooks, and about
 using \latex to make eBooks. This book is not intended to be comprehensive. It's
-intended to enable you to make an ebook end-to-end quickly, cheaply, and easily.
+intended to enable you to make an eBook end-to-end quickly, cheaply, and easily.
 
 %%%
 \section{How to Use this Book}
@@ -57,21 +53,22 @@ the next few chapters. These are the main ways you can use this material:
     used to make this eBook end to end, and then you can decide if this is something you want to try.
     \item You can use it as an instruction manual, learning and following some of the procedures step-by-step to make your own book.
     \item You can use it as a template. All of the source files used to make this book
-    are freely available in GitHub\footnote{The GitHub repository is at \url{https://github.com/dwiddows/ebookbook}} and Overleaf.\footnote{TODO: Publish Overleaf template} The source files are laid out in a way that it
-    should be easy to clone the project and adapt them for your own book.
+    are freely available in GitHub at \url{https://github.com/dwiddows/ebookbook} and Overleaf.
+    The source files are laid out in a way that should make it easy to clone the project and adapt it for your own book.
 \end{itemize}
 
-It follows that you could recreate the eBook for yourself, following just the process
+It follows that you could recreate this eBook for yourself, following just the process
 described in the book: which is basically to clone the GitHub or Overleaf 
 project as a template, build
-the project, send the output html document through an ePub converter, and send this to
-your e-reader device. So why on earth would anyone buy this book if it's free? Because
-anyone who reads the steps above and immediately thinks ``Git clone ... build.sh ... 
-pipe ... ship ... done'' knows that it will take a little while to get working 
-end to end, that their time is valuable, and the price tag of this book is small
-compared! So if you want to read this book for free on your e-reader, that's the way
-to go about it. Or if you want to just click ``buy'' now and send the author most of the
+the project, send the output HTML document through an ePub converter, and send this to
+your eReader device. So why would anyone buy this book if it's free? Because
+anyone who reads the steps above and immediately thinks ``hmmm \ldots git clone \ldots build.sh \ldots 
+pipe \ldots ship \ldots yeah, alright'' will expect that it will take a little while to get working 
+end to end, that their time is valuable, and that the price tag of this book is small
+compared. So if you want to read this book for free on your eReader,
+compiling from source is the way to go about it. Or if you want to just click `buy' now and send the author most of the
 $0.99$ price tag, please go ahead, and thank you!
 
-Either way, keep reading, I hope the book is useful to you, and wish you 
+Either way, if you're not put off by \latex and \texttt{git}
+commands, keep reading. I hope the book is useful to you, and wish you 
 all the best of luck and perseverance writing your book!

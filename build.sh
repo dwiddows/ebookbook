@@ -12,7 +12,7 @@ AUTHOR="Dominic Widdows" # Of course, you'll want to change this.
 if [[ $# -eq 0 ]]
    then
        # This command makes sure that these images have correponding .xbb files to tell the htlatex / make4ht process how big to make them.
-       ebb -x images/*.png images/*.jpg
+       extractbb -x images/*.png images/*.jpg
        
        pdflatex $MAINFILE
        bibtex $MAINFILE

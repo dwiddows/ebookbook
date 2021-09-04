@@ -1,4 +1,7 @@
-% This file is for commands / macros / functions. 
+% This file is for commands / macros / functions.
+
+% That at least was the original intention. As you can see from the comments, some of the commands
+% that work for TeX and pdf output are innefective when applied to HTML and eBooks!
 
 % These are useful because HTML output corrupts the result of the \latex command.
 \newcommand{\latex}{LaTeX\xspace}
@@ -11,6 +14,17 @@
   \newpage
 \fi
 }
+
+\def\smalltt#1{\texttt{\small #1}}
+
+% Make font smaller in verbatim mode. This doesn't seem to work in
+% HTML output though.
+\makeatletter
+\patchcmd{\@verbatim}
+  {\verbatim@font}
+  {\verbatim@font\small}
+  {}{}
+\makeatother
 
 % Wrapfigure doesn't typeset well in the ebook conversion! 
 % marginal Boxes for special interest points
