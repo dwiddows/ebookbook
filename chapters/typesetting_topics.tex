@@ -12,10 +12,10 @@ variants to use.
 One of the easy things that `just works' most of the time in \latex is references. For example,
 the \tex source for this chapter starts with:
 
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\small]
 \chapter{Typesetting Topics}
 \label{chapter:typesetting}
-\end{verbatim}
+\end{Verbatim}
 
 Then if I want to refer to the chapter, I write \smalltt{Chapter \textbackslash ref\{chapter:typesetting\}} which
 gets rendered as `Chapter \ref{chapter:typesetting}'. Adding \smalltt{label} commands for tables and figures
@@ -33,9 +33,9 @@ Nearly all eBooks have graphics in them somewhere, even if just for a cover page
 The \smalltt{graphicx} package works well for this.
 For example, the cover image for the title page of this book is included using the command:
 
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\small]
 \includegraphics[width=0.8\linewidth]{images/cover.png}
-\end{verbatim}
+\end{Verbatim}
 
 Typically for webpages and eBooks, the size of images is expected to vary with the page size and settings,
 so using a context-sensitive width like a proportion of the linewidth is more appropriate than a fixed-width
@@ -51,7 +51,7 @@ yourself.
 Images are often put in the \latex \smalltt{figure} environment, which can include captions and a label for references.
 For example, the map in Figure \ref{fig:sea_map} is created using the commands:
 
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\footnotesize]
 \begin{figure}
 \begin{center}
   \includegraphics[width=\linewidth]{images/sea_countries.png}
@@ -60,11 +60,11 @@ For example, the map in Figure \ref{fig:sea_map} is created using the commands:
   \label{fig:sea_map}
 \end{center}
 \end{figure}
-\end{verbatim}
+\end{Verbatim}
   
 \begin{figure}
 \begin{center}
-  \includegraphics[width=\linewidth]{images/sea_countries.png}
+  \includegraphics[width=1.2\linewidth]{images/sea_countries.png}
   \caption{A map showing countries in Southeast Asia, 
          made using the \smalltt{pilmaps} library}
   \label{fig:sea_map}
@@ -86,7 +86,7 @@ and I'm hoping that this won't affect the end result on Kindle \smalltt{epub}  b
 
 For example, the following \latex gives the output in Table \ref{tab:artist_works}.
 
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\footnotesize]
 \begin{table}
   \centering
   \begin{tabular}{|c|l|}
@@ -97,13 +97,13 @@ For example, the following \latex gives the output in Table \ref{tab:artist_work
     Charlie Watts & Satisfaction \\
     \hline
   \end{tabular}
-  \caption{Contributions to modern civilization}
+  \caption{Inspiring contributions}
   \label{tab:artist_works}
 \end{table}
-\end{verbatim}
+\end{Verbatim}
 
 \begin{table}
- \begin{center}
+ \centering
   \begin{tabular}{|c|l|}
     \hline
     \textbf{Artist} & \textbf{Great Works} \\
@@ -112,9 +112,8 @@ For example, the following \latex gives the output in Table \ref{tab:artist_work
     Charlie Watts & Satisfaction \\
     \hline
   \end{tabular}
-  \caption{Contributions to modern civilization}
+  \caption{Inspiring contributions}
   \label{tab:artist_works}
- \end{center}
 \end{table}
 
 With standard \latex it is easy to make tables that are too big for pages or that typeset poorly for other of reasons.
@@ -124,18 +123,21 @@ and check output carefully.
 %%
 \section{Equations}
 
-One of the benefits of \latex is that it's easy to typeset mathematical notation like formulae and equations.
+One of the benefits of \latex is that it's easy to typeset mathematical notation like formulae and equations. So far these look to work well in HTML and eBook formats.
 
-So far these look to work well in HTML and eBook formats. The commands below give the subsequent
-renderings of Euler's formula and Fourier series:
+For example, here is the \tex and its rendering for Euler's formula:
 
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\footnotesize]
 \[ e^{ix} = \cos x + i \sin x \]
-\[ f(x) = \sum_{0}^{\infty}a_k \sin(kx) + b_k \cos(kx). \]
-\end{verbatim}
-
+\end{Verbatim}
 \[ e^{i\pi} = -1 \]
-\[ f(x) = \sum_{0}^{\infty}a_k \sin(kx) + b_k \cos(kx). \]
+
+And here is the corresponding \tex and output for a Fourier series:
+
+\begin{Verbatim}[fontsize=\footnotesize]
+\[ f(x) = \sum_{0}^{\infty}a_k \sin(kx) + b_k \cos(kx) \]
+\end{Verbatim}
+\[ f(x) = \sum_{k=0}^{\infty}a_k \sin(kx) + b_k \cos(kx) \]
 
 Array environments for typesetting rows and columns in equations also work, for example:
 

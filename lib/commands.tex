@@ -16,31 +16,3 @@
 }
 
 \def\smalltt#1{\texttt{\small #1}}
-
-% Make font smaller in verbatim mode. This doesn't seem to work in
-% HTML output though.
-\makeatletter
-\patchcmd{\@verbatim}
-  {\verbatim@font}
-  {\verbatim@font\small}
-  {}{}
-\makeatother
-
-% Wrapfigure doesn't typeset well in the ebook conversion! 
-% marginal Boxes for special interest points
-\definecolor{grey}{gray}{0.96}
-% simple definition rather than newenvironment because of problems
-% nesting parbox
-\def\BOX#1#2{
-  \begin{wrapfigure}{r}{2.5cm}
-  \colorbox{grey}{\parbox{2cm}{
-  % title
-  \flushleft #1 \\
-  \vspace*{0.1in}
-  \small
-  % paragraph text
-  #2}   
-  }
-  \end{wrapfigure}
-}
-
