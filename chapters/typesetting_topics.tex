@@ -30,11 +30,11 @@ So far \textsc{BibTeX} has worked fine for this book.
 \section{Graphics}
 
 Nearly all eBooks have graphics in them somewhere, even if just for a cover page. 
-The \smalltt{graphicx} package works well for this, with an \smalltt{fbox} to add a frame.
+The \smalltt{graphicx} package works well for this.
 For example, the cover image for the title page of this book is included using the command:
 
 \begin{verbatim}
-\fbox{\includegraphics[width=0.8\linewidth]{images/cover.png}}
+\includegraphics[width=0.8\linewidth]{images/cover.png}
 \end{verbatim}
 
 Typically for webpages and eBooks, the size of images is expected to vary with the page size and settings,
@@ -54,20 +54,20 @@ For example, the map in Figure \ref{fig:sea_map} is created using the commands:
 \begin{verbatim}
 \begin{figure}
 \begin{center}
-\caption{A map showing countries in Southeast Asia, 
+  \includegraphics[width=\linewidth]{images/sea_countries.png}
+  \caption{A map showing countries in Southeast Asia, 
          made using the \smalltt{pilmaps} library}
   \label{fig:sea_map}
-  \includegraphics[width=\linewidth]{images/sea_countries.png}
 \end{center}
 \end{figure}
 \end{verbatim}
   
 \begin{figure}
 \begin{center}
-\caption{A map showing countries in Southeast Asia, 
+  \includegraphics[width=\linewidth]{images/sea_countries.png}
+  \caption{A map showing countries in Southeast Asia, 
          made using the \smalltt{pilmaps} library}
   \label{fig:sea_map}
-  \includegraphics[width=\linewidth]{images/sea_countries.png}
 \end{center}
 \end{figure}
 
