@@ -1,0 +1,46 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This is a template fie for tests. It assumed you're running two directories deeper than the project root. 
+
+\documentclass[pagesize=auto]{scrbook}
+
+\input{../../lib/packages}
+\input{../../lib/commands}
+
+\usepackage{fancyvrb}
+
+\begin{document}
+
+\begin{verbatim}
+\begin{table}
+  \centering
+  \begin{tabular}{|c|l|}
+    \hline
+    \textbf{Artist} & \textbf{Great Works} \\
+    \hline
+    Leonardo da Vinci & The Mona Lisa \\
+    Charlie Watts & Satisfaction \\
+    \hline
+  \end{tabular}
+  \caption{Inspiring contributions}
+  \label{tab:artist_works}
+\end{table}
+\end{verbatim}
+
+Now becomes smaller:
+
+\begin{Verbatim}[fontsize=\footnotesize]
+  \begin{table}
+  \begin{tabular}{|c|l|}
+    \hline
+    \textbf{Artist} & \textbf{Great Works} \\
+    \hline
+    Leonardo da Vinci & The Mona Lisa \\
+    Charlie Watts & Satisfaction \\
+    \hline
+  \end{tabular}
+  \caption{Inspiring contributions}
+  \label{tab:artist_works}
+\end{table}
+\end{Verbatim}
+
+\end{document}

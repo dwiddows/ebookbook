@@ -13,6 +13,7 @@ TESTFILE="$(basename $1 .tex)"
 
 mkdir -p output
 cd output
+pdflatex ../$TESTFILE.tex
 make4ht ../$TESTFILE.tex
 ebook-convert $TESTFILE.html $TESTFILE.epub
 cd ..
