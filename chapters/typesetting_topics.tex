@@ -4,7 +4,7 @@
 
 This chapter will go through some of the \tex features you'll probably want to use at some point.
 So far, {\em most} of the things I usually do with \tex can be made to work for eBook outputs,
-but there are lots of commands and options that {\em don't} work and you need to know which
+but there are lots of commands and options that don't work and you need to know which
 variants to use.
 
 \section{References and Citations}
@@ -24,18 +24,17 @@ works in the same way.
 This isn't rocket science, but if you've ever tried
 renumbering by-hand, you know how valuable this is! Similarly, bibliographic references such as
 \smalltt{\textbackslash cite\{knuth1984texbook\}} work correctly, giving a citation looking like \cite{knuth1984texbook}.
-I dare say there are plenty of corner cases with bibliography packages, but so far \textsc{BibTeX} has worked
-fine for this book.
+So far \textsc{BibTeX} has worked fine for this book.
 
 %%
 \section{Graphics}
 
 Nearly all eBooks have graphics in them somewhere, even if just for a cover page. 
-The \smalltt{graphicx} works well for this, so for example, the cover image for the title page
-of this book is included using the command:
+The \smalltt{graphicx} package works well for this, with an \smalltt{fbox} to add a frame.
+For example, the cover image for the title page of this book is included using the command:
 
 \begin{verbatim}
-\includegraphics[width=0.8\linewidth]{images/cover.png}
+\fbox{\includegraphics[width=0.8\linewidth]{images/cover.png}}
 \end{verbatim}
 
 Typically for webpages and eBooks, the size of images is expected to vary with the page size and settings,
@@ -45,7 +44,7 @@ declaration like `10cm'. Many eReaders enable users to click on images to see th
 One frequent problem is that HTML typesetting using \smalltt{htlatex} or a similar process doesn't always preserve the
 aspect ratio of your images. For example, the same setting may be used for width and height, making all images square.
 The problem is solved by adding a bounding box file using the \smalltt{extractbb} command, which is typically included
-with \tex distributions. This step is included in the project's \smalltt{build.sh} script, at least for \smalltt{.jpg} and
+with \tex distributions. For this book, this step is included in the project's \smalltt{build.sh} script, at least for \smalltt{.jpg} and
 \smalltt{.png} files, and it can easily be extended to more filetypes. Or you can run \smalltt{extractbb -x \$IMAGE} on these files
 yourself.
 
@@ -74,9 +73,10 @@ For example, the map in Figure \ref{fig:sea_map} is created using the commands:
 
 From here, the figure can be referenced using the command 
 \smalltt{\textbackslash ref\{fig:sea\_map\}}. (And if you happen to be looking for a free mapping tool in python that
-with low-level, hands-on rendering control, feel free to try {\small \url{https://github.com/dwiddows/pilmaps}}.) 
+supports low-level, hands-on rendering control, feel free to try {\small \url{https://github.com/dwiddows/pilmaps}}.) 
 So far I haven't found an effective way of controlling the placement of figures --- for example, directives
-like \smalltt{\textbackslash begin[ht]\{figure\}} don't affect the HTML or the ePub output.
+like \smalltt{\textbackslash begin[ht]\{figure\}} don't affect the HTML or the ePub output, and I haven't got
+wraparound text to work.
 
  %%
 \section{Tables}
@@ -114,14 +114,14 @@ Basic tables typeset just fine. For example, the following \latex gives the outp
  \end{center}
 \end{table}
 
-With standard \latex it is easy to make tables that are too big for pages and typeset poorly for a variety of reasons.
+With standard \latex it is easy to make tables that are too big for pages or that typeset poorly for other of reasons.
 I expect this can be even more of a problem with small-screen eBooks, so you'll want to design any tables accordingly
 and check output carefully.
 
 %%
 \section{Equations}
 
-One of the great draws of \latex is that it's easy to typeset mathematical notation like formulae and equations.
+One of the benefits of \latex is that it's easy to typeset mathematical notation like formulae and equations.
 
 So far these look to work well in HTML and eBook formats. The commands below give the subsequent
 renderings of Euler's formula and Fourier series:
@@ -153,11 +153,13 @@ when typesetting mathematics for eBooks.
 The table of contents should get typeset entirely automatically if you use this template.
 
 The story of how traditional indexes and concordances influenced the design of the inverted
-indexes used by search engines is quite fascinating, as told by \citet[Ch 1]{witten1999gigabytes}.
-Since this story is so advanced by now, I'm not even bothering with an explicit index section ---
-if the reader wants to looks something up, use the Search button! If you want to make a paper
-version of your book as well, however, you may want to reconsider this.
+indexes used by search engines is fascinating \citep[Ch 1]{witten1999gigabytes}.
+Since this story is so advanced by now, I'm not adding an explicit index section ---
+to look something up, use the Search button! If you want to make a paper
+version of your book as well as an eBook, you may want to reconsider this.
 
 If you do want to make a paper book as well, it may be worth trying a
 more sophisticated template such as the one that comes with Clemens
 Lode's book on using \latex for books and eBooks \citep{lode2019better}.
+This includes conditional compilation so that different commands and even sections are used
+for the PDF version that leads to a paper book and the HTML version that leads to an eBook.

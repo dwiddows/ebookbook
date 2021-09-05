@@ -128,11 +128,11 @@ combines with the user's device settings to decide which page it
 should appear on.
 
 So the \smalltt{ebookbook.html} file (rather than the corresponding
-\smalltt{pdf} file or any other page-layout format) will be used to
+PDF file or any other page-layout format) will be used to
 create your eBook format. 
 
 You can turn your HTML file form a webpage into an eBook by installing
-and using a converter such as Calibre \smalltt{ebook-convert}.
+and using a converter such as Calibre \smalltt{ebook-convert} or
 Amazon's {\em Kindle Previewer} tool.
 There are a range of such converters and previewers, targetting a
 variety of formats, and this is another place where the complexity of
@@ -167,12 +167,12 @@ or an eReader device such as a Kindle.
 Assuming that most of your writing will be on a computer, that's
 probably the first place you'll want to see your work. For example, I
 usually open the Calibre app and load the epub file, or do both at
-once with the command \smalltt{calibre ebookbook.epub}. This gives 
+once with the command \smalltt{calibre ebookbook.epub}. Once the book is imported and loaded, this gives 
 the satisfying result shown in Figure \ref{fig:calibre_screenshot}.
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\linewidth]{images/calibre_screenshot.png}
+\fbox{\includegraphics[width=\linewidth]{images/calibre_screenshot.png}}
 \caption{Book thumbnail image and cover page in the Calibre eReader}
 \label{fig:calibre_screenshot}
 \end{center}
@@ -180,12 +180,10 @@ the satisfying result shown in Figure \ref{fig:calibre_screenshot}.
 
 To view on an eReader device or phone, you often have to send it to
 the device or load it on in some way --- again, there are a range of
-methods.
-
-For Amazon Kindles, you need to find / set up an email address for the
+methods. For Amazon Kindles, you need to find / set up an email address for the
 device itself, and send the book to that email address. As an extra
-complexity, this method only works using the older \smalltt{.mobi}
-version.  Also Kindle preloads like this do not (at the moment)
+complexity, this method only works using the older \smalltt{mobi}
+files.  Also Kindle preloads like this do not (at the moment)
 display the cover page of the book in your library or menu page,
 because Amazon retrieves this information for {\em published} books
 from elsewhere. So the preview in the library view is somewhat
@@ -193,7 +191,7 @@ disappointing, but it works (Figure \ref{fig:kindle_screenshot}).
 
 \begin{figure}
 \begin{center}
-  \includegraphics[width=0.6\linewidth]{images/kindle_screenshot.png}
+  \fbox{\includegraphics[width=0.6\linewidth]{images/kindle_screenshot.png}}
   \caption{Book thumbnail image loaded onto a Kindle}
   \label{fig:kindle_screenshot}
  \end{center}
@@ -208,13 +206,13 @@ The next thing you should do is {\em change something}. Change the title in the 
 to whatever title you want. Rerun the steps above and hopefully you'll see exactly what you intended: a copy of the eBook, but with
 your title instead.
 
-At this point you're off to the races. Doesn't mean that it's all plain sailing from here, there will doubtless be glitches and hurdles along the way.
+At this point you're off to the races. That doesn't mean that it's all plain sailing from here, there will doubtless be glitches and hurdles along the way.
 But the main thing is that you have a template, examples of several \latex constructs that work with eBooks, and you're able to start turning this
 into your own book. You may want to save your work separately at this point, call the project something else, and if you use source control,
-start checking in your work in some way that makes it clear that it's a new project, not a work-in-progress on the old project that's intended to be
+start checking in your work in some way that makes it clear that it's a new project, rather than a work-in-progress on the old project that's intended to be
 merged back in at some point.
 
-Experiment with removing directives to \smalltt{\\input} different chapters, and watch the book get shorter. Try changing image files to some other graphic
+Experiment with removing directives to \smalltt{\textbackslash input} different chapters, and watch the book get shorter. Try changing image files to some other graphic
 and make sure they change appropriately. And try editing the AUTHOR in the \smalltt{build.sh} file and make sure the right name shows up when the book is viewed in an eReader.
 
 If this works, you can be pretty confident that your book is on the right track. You'll be able to organize the content into \tex files, image files, etc., and create an eBook!
