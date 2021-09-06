@@ -7,6 +7,9 @@
 \newcommand{\latex}{LaTeX\xspace}
 \newcommand{\tex}{TeX\xspace}
 
+% Makes extra space in HTML but not in PDF output.
+\def\htbr{\ifdefined\HCode{\HCode{<br/><br/>}}\fi}
+
 \newcommand\nextpage[1][]{
 \ifdefined\HCode {
   \HCode{<mbp:pagebreak />}}

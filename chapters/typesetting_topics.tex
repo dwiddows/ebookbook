@@ -55,7 +55,8 @@ For example, the map in Figure \ref{fig:sea_map} is created using the commands:
 \begin{Verbatim}[fontsize=\footnotesize]
 \begin{figure}
 \begin{center}
-  \includegraphics[width=1.2\linewidth]{images/sea_countries.png}
+  \includegraphics[width=\linewidth]{images/sea_countries.png}
+  \htbr
   \caption{Map of countries in Southeast Asia}
   \label{fig:sea_map}
 \end{center}
@@ -64,11 +65,18 @@ For example, the map in Figure \ref{fig:sea_map} is created using the commands:
   
 \begin{figure}
 \begin{center}
-  \includegraphics[width=1.2\linewidth]{images/sea_countries.png}
+  \includegraphics[width=\linewidth]{images/sea_countries.png}
+  \htbr
   \caption{Map of countries in Southeast Asia}
   \label{fig:sea_map}
 \end{center}
 \end{figure}
+
+Note the \sverb|\htbr| command, which is defined in the macros as
+\sverb|\ifdefined\HCode{\HCode{<br/><br/>}}\fi}|.
+This is an extra \tex command for hypertext: it forces
+some vertical space to be included between the image and the caption, because the usual \tex command
+\sverb|vspace| seems to have no effect on the HTML (and hence ePub) output here.
 
 From here, the figure can be referenced using the command 
 \sverb|\ref{fig:sea_map}|. (Made using \surl{https://github.com/dwiddows/pilmaps},
