@@ -1,0 +1,47 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This is a template file for language tests.
+
+\documentclass[pagesize=auto]{scrbook}
+
+\input{../../lib/packages}
+\input{../../lib/commands}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[greek,russian,english]{babel}
+
+\begin{document}
+
+This is in English.
+
+This is in Russian:
+\selectlanguage{russian}
+Это на русском.
+
+\selectlanguage{english}
+Back in English.
+
+This is in Greek:
+\selectlanguage{greek}
+Αυτό είναι στα ελληνικά.
+
+\selectlanguage{english}
+I have not got Chinese or Thai working properly yet. See the comments.
+
+% From https://tex.stackexchange.com/questions/17611/how-does-one-type-chinese-in-latex/
+% All have problems so far.
+%\usepackage[UTF8]{ctex}
+%\usepackage{xeCJK}
+%\setCJKmainfont{SimSun}
+
+%\selectlanguage{english}
+%Chinese works differently.
+%`中文不是英文'
+
+%\selectlanguage{thai}
+%อันนี้เป็นภาษาไทย
+
+\selectlanguage{english}
+Back in English.
+
+\end{document}

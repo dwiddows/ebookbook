@@ -1,0 +1,49 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This is a template file for trying to make boxes, minipages, etc.
+
+\documentclass[pagesize=auto]{scrbook}
+
+\input{../../lib/packages}
+\input{../../lib/commands}
+
+\begin{document}
+
+Hello outside a box!
+
+\begin{center}
+Hello outside a box, centered!
+\fbox{Hello in a box, centered!}
+\end{center}
+
+\begin{figure}
+  \includegraphics[width=0.5\linewidth]{../../images/calibre_screenshot.png}
+  \caption{Screenshot in a figure but not a box}
+\end{figure}
+
+\begin{center}
+\begin{figure}
+  \begin{center}
+  \fbox{\includegraphics[width=0.5\linewidth]{../../images/calibre_screenshot.png}}
+  \caption{Screenshot in an fbox in a figure - floats to the left, however often I try to center it}
+  \end{center}
+\end{figure}
+\end{center}
+
+\begin{figure}
+    \begin{minipage}{0.6\textwidth}
+        \makebox[0.4\columnwidth][l]{line1}
+        \par
+        \makebox[0.4\columnwidth][l]{line2}
+        \par
+        \makebox[0.4\columnwidth][r]{line3}
+    \end{minipage}
+    \begin{minipage}{0.375\textwidth}
+        \centering 
+        %\includegraphics{pic.jpg}
+        image
+    \end{minipage}
+\end{figure}
+
+So what's the problem?
+
+\end{document}
