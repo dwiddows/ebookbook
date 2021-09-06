@@ -7,6 +7,7 @@ So far, {\em most} of the things I usually do with \tex can be made to work for 
 but there are lots of commands and options that don't work and you need to know which
 variants to use.
 
+%%
 \section{References and Citations}
 
 One of the easy things that `just works' most of the time in \latex is references. For example,
@@ -17,13 +18,13 @@ the \tex source for this chapter starts with:
 \label{chapter:typesetting}
 \end{Verbatim}
 
-Then if I want to refer to the chapter, I write \smalltt{Chapter \textbackslash ref\{chapter:typesetting\}} which
+Then if I want to refer to the chapter, I write \sverb|Chapter \ref{chapter:typesetting}| which
 gets rendered as `Chapter \ref{chapter:typesetting}'. Adding \smalltt{label} commands for tables and figures
 works in the same way.
 
 This isn't rocket science, but if you've ever tried
 renumbering by-hand, you know how valuable this is! Similarly, bibliographic references such as
-\smalltt{\textbackslash cite\{knuth1984texbook\}} work correctly, giving a citation looking like \cite{knuth1984texbook}.
+\sverb|\cite{knuth1984texbook}| work correctly, giving a citation looking like \cite{knuth1984texbook}.
 So far \textsc{BibTeX} has worked fine for this book.
 
 %%
@@ -54,9 +55,8 @@ For example, the map in Figure \ref{fig:sea_map} is created using the commands:
 \begin{Verbatim}[fontsize=\footnotesize]
 \begin{figure}
 \begin{center}
-  \includegraphics[width=\linewidth]{images/sea_countries.png}
-  \caption{A map showing countries in Southeast Asia, 
-         made using the \smalltt{pilmaps} library}
+  \includegraphics[width=1.2\linewidth]{images/sea_countries.png}
+  \caption{Map of countries in Southeast Asia}
   \label{fig:sea_map}
 \end{center}
 \end{figure}
@@ -65,17 +65,16 @@ For example, the map in Figure \ref{fig:sea_map} is created using the commands:
 \begin{figure}
 \begin{center}
   \includegraphics[width=1.2\linewidth]{images/sea_countries.png}
-  \caption{A map showing countries in Southeast Asia, 
-         made using the \smalltt{pilmaps} library}
+  \caption{Map of countries in Southeast Asia}
   \label{fig:sea_map}
 \end{center}
 \end{figure}
 
 From here, the figure can be referenced using the command 
-\smalltt{\textbackslash ref\{fig:sea\_map\}}. (And if you happen to be looking for a free mapping tool in python that
-supports low-level, hands-on rendering control, feel free to try {\small \url{https://github.com/dwiddows/pilmaps}}.) 
+\sverb|\ref{fig:sea_map}|. (Made using \surl{https://github.com/dwiddows/pilmaps},
+a free mapping tool in python that supports low-level, hands-on rendering control --- feel free to try it out.) 
 So far I haven't found an effective way of controlling the placement of figures --- for example, directives
-like \smalltt{\textbackslash begin[ht]\{figure\}} don't affect the HTML or the ePub output, and I haven't got
+like \sverb|\begin[ht]{figure}| don't affect the HTML or the ePub output, and I haven't got
 wraparound text to work.
 
  %%
@@ -97,7 +96,7 @@ For example, the following \latex gives the output in Table \ref{tab:artist_work
     Charlie Watts & Satisfaction \\
     \hline
   \end{tabular}
-  \caption{Inspiring contributions}
+  \caption{Inspiring works}
   \label{tab:artist_works}
 \end{table}
 \end{Verbatim}
@@ -112,7 +111,7 @@ For example, the following \latex gives the output in Table \ref{tab:artist_work
     Charlie Watts & Satisfaction \\
     \hline
   \end{tabular}
-  \caption{Inspiring contributions}
+  \caption{Inspiring works}
   \label{tab:artist_works}
 \end{table}
 
@@ -127,17 +126,17 @@ One of the benefits of \latex is that it's easy to typeset mathematical notation
 
 For example, here is the \tex and its rendering for Euler's formula:
 
-\begin{Verbatim}[fontsize=\footnotesize]
+\begin{Verbatim}[fontsize=\scriptsize]
 \[ e^{ix} = \cos x + i \sin x \]
 \end{Verbatim}
 \[ e^{i\pi} = -1 \]
 
 And here is the corresponding \tex and output for a Fourier series:
 
-\begin{Verbatim}[fontsize=\footnotesize]
-\[ f(x) = \sum_{0}^{\infty}a_k \sin(kx) + b_k \cos(kx) \]
+\begin{Verbatim}[fontsize=\scriptsize]
+\[ f(x) = \sum_{k=0}^{\infty} [  a_k \sin(kx) + b_k \cos(kx) ] \]
 \end{Verbatim}
-\[ f(x) = \sum_{k=0}^{\infty}a_k \sin(kx) + b_k \cos(kx) \]
+\[ f(x) = \sum_{k=0}^{\infty} [  a_k \sin(kx) + b_k \cos(kx) ] \]
 
 Array environments for typesetting rows and columns in equations also work, for example:
 
@@ -159,8 +158,9 @@ The table of contents should get typeset entirely automatically if you use this 
 
 The story of how traditional indexes and concordances influenced the design of the inverted
 indexes used by search engines is fascinating \citep[Ch 1]{witten1999gigabytes}.
-Since this story is so advanced by now, I'm not adding an explicit index section ---
-to look something up, use the Search button! If you want to make a paper
+By now, for electronic books, this process is quite complete: the index is created automatically,
+and accessed via the search interface, not by the user scrolling through topics in alphabetical order.
+If you want to make a paper
 version of your book as well as an eBook, you may want to reconsider this.
 
 If you do want to make a paper book as well, it may be worth trying a
@@ -168,3 +168,31 @@ more sophisticated template such as the one that comes with Clemens
 Lode's book on using \latex for books and eBooks \citep{lode2019better}.
 This includes conditional compilation so that different commands and even sections are used
 for the PDF version that leads to a paper book and the HTML version that leads to an eBook.
+
+%%
+\section{Difficulties}
+
+Several things are hard and may just not work with typesetting to HTML.
+
+Exact placement is sometimes impossible. Figures, tables, and captions may appear
+in various places, and often don't obey typesetting directives. For example,
+putting an \sverb|fbox| (framebox) around a figure makes it float to the left, irrespective of
+centering commands. Captions may easily fall across
+a page boundary, so one tip is to keep captions small (one line), just enough for the reader
+of the main text to see that they are looking at the right table or image.
+
+Controlling font size in different environments has been hard, particularly with typewriter fonts
+used for verbatim text such as rendering \latex commands that you don't want to be interpreted as
+\latex commands. In retrospect, trying to write an eBook about \latex itself was perhaps not the
+most sensible decision! But this has been fixed using the right combination of commands from the
+\sverb|fancyvrb| package, included here as macros like \sverb|\sverb| for `small verbatim' and
+\sverb|\surl| for `small URL'.
+
+Some of these things lead to important design considerations.
+Remember that we're designing for a small screen, whose font size and spacing is up to the user. 
+There no point making a particular page (say page 33) look perfect on your device,
+only to be reminded that for someone with a larger font setting, this could be spread across
+pages 44 and 45. Don't get too ambitious with making your book
+look `just right' on one device --- instead, once something is clear and legible, be thankful
+that it can reach so many varied users.
+

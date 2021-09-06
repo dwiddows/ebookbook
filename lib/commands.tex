@@ -15,4 +15,12 @@
 \fi
 }
 
+% Makes small typewriter text, comparable to other font sizes.
 \def\smalltt#1{\texttt{\small #1}}
+
+% Makes small verbatim inline typewriter text, comparable to other font sizes.
+% Use as \sverb|My verbatim text|
+\def\sverb{\Verb[fontsize=\small]}
+
+% Makes small URL text, comparable to other font sizes.
+\def\surl#1{\small{\url{#1}}}
