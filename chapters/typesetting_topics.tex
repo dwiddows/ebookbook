@@ -42,11 +42,11 @@ Typically for webpages and eBooks, the size of images is expected to vary with t
 so using a context-sensitive width like a proportion of the linewidth is more appropriate than a fixed-width
 declaration like `10cm'. Many eReaders enable users to click on images to see them in more detail, which helps.
 
-One frequent problem is that HTML typesetting using \smalltt{htlatex} or a similar process doesn't always preserve the
+One frequent problem is that HTML typesetting using \smalltt{make4ht} or a similar process doesn't always preserve the
 aspect ratio of your images. For example, the same setting may be used for width and height, making all images square.
 The problem is solved by adding a bounding box file using the \smalltt{extractbb} command, which is typically included
 with \tex distributions. For this book, this step is included in the project's \smalltt{build.sh} script, at least for \smalltt{.jpg} and
-\smalltt{.png} files, and it can easily be extended to more filetypes. Or you can run \smalltt{extractbb -x \$IMAGE} on these files
+\smalltt{.png} files, and it can easily be extended to more filetypes. Or you can run \smalltt{extractbb -x} on these files
 yourself.
 
 Images are often put in the \latex \smalltt{figure} environment, which can include captions and a label for references.
@@ -80,8 +80,8 @@ wraparound text to work.
  %%
 \section{Tables}
 
-Basic tables typeset just fine in \smalltt{epub} format. They don't format properly in the Kindle preview of \smalltt{mobi} files,
-and I'm hoping that this won't affect the end result on Kindle \smalltt{epub}  books downloaded form the store.
+Basic tables typeset just fine in \smalltt{.epub} format. They don't format properly in the Kindle preview of \smalltt{.mobi} files
+sent via email, but look better in the Kindle \smalltt{.epub} preview.
 
 For example, the following \latex gives the output in Table \ref{tab:artist_works}.
 
@@ -162,19 +162,18 @@ For example, this is in Russian:
 Это на русском.
 
 \selectlanguage{english}
-This is back in English.
-
 This is in Greek:
+
 \selectlanguage{greek}
 Αυτό είναι στα ελληνικά.
 
 \selectlanguage{english}
-This is back in English. These examples are made using the \sverb|babel| package, setting
-encodings appropriately in the initial document setup (see the \sverb|lib/packages.tex| file),
+These examples are made using the \sverb|babel| package, and by setting
+encoding instructions in the initial document setup (see the \sverb|lib/packages.tex| file),
 and then in the \latex source writing something like:
 
 \begin{Verbatim}[fontsize=\footnotesize]
-For example, this is in Greek:
+This is in Greek:
 \selectlanguage{greek}
 ( add your text here )
 
@@ -188,16 +187,17 @@ showing this.
 %%
 \section{Contents and Index}
 
-The table of contents should get typeset entirely automatically if you use this template.
+The table of contents should get typeset automatically if you use this template.
 
 The story of how traditional indexes and concordances influenced the design of the inverted
 indexes used by search engines is fascinating \citep[Ch 1]{witten1999gigabytes}.
-By now, for electronic books, this process is quite complete: the index is created automatically,
+For electronic books, this process is quite complete: the index is created automatically,
 and accessed via the search interface, not by the user scrolling through topics in alphabetical order.
-If you want to make a paper
-version of your book as well as an eBook, you may want to reconsider this.
+Therefore I'm not including an explicit index section.
 
-If you do want to make a paper book as well, it may be worth trying a
+If you want to make a paper
+version of your book as well as an eBook, you may want to make an alphabetical index.
+In this case, it may be worth trying a
 more sophisticated template such as the one that comes with Clemens
 Lode's book on using \latex for books and eBooks \citep{lode2019better}.
 This includes conditional compilation so that different commands and even sections are used
@@ -206,10 +206,10 @@ for the PDF version that leads to a paper book and the HTML version that leads t
 %%
 \section{Difficulties}
 
-Several things are hard and may just not work with typesetting to HTML.
+Several things have proved tricky and may just not work with typesetting to HTML.
 
 Exact placement is sometimes impossible. Figures, tables, and captions may appear
-in various places, and often don't obey typesetting directives. For example,
+in various places, and often don't obey \tex typesetting directives. For example,
 putting an \sverb|fbox| (framebox) around a figure makes it float to the left, irrespective of
 centering commands. Captions may easily fall across
 a page boundary, so one tip is to keep captions small (one line), just enough for the reader
@@ -224,9 +224,8 @@ most sensible decision! But this has been fixed using the right combination of c
 
 Some of these things lead to useful design considerations.
 Remember that we're designing for a small screen, whose font size and spacing is up to the user. 
-There no point making page 33 look perfect on your device,
-only to be reminded that for someone with a larger font setting, this could be spread across
-pages 44 and 45. Don't get too determined to make your page layout
-look perfect on one device at one font setting --- try to make it clear, legible,
+Don't struggle to make a particular page look perfect on your device
+only to see later that for someone with a larger font setting, this content is broken across
+several pages. Try to make your book design clear, legible,
 and somewhat flexible, and a huge variety of readers will be able to enjoy it!
 
