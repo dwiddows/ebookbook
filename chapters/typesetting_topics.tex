@@ -152,6 +152,40 @@ horizontally on a small screen. If these start to get too small, consider breaki
 when typesetting mathematics for eBooks.
 
 %%
+\section{Different Languages}
+
+It's possible (and sometimes easy) to typeset documents using languages other than English
+and character sets other than the Latin alphabet.
+
+For example, this is in Russian:
+\selectlanguage{russian}
+Это на русском.
+
+\selectlanguage{english}
+This is back in English.
+
+This is in Greek:
+\selectlanguage{greek}
+Αυτό είναι στα ελληνικά.
+
+\selectlanguage{english}
+This is back in English. These examples are mae using the \sverb|babel| package, setting
+encodings appropriately in the initial document setup (see the \sverb|lib/packages.tex| file),
+and then in the \latex source writing something like:
+
+\begin{Verbatim}[fontsize=\footnotesize]
+For example, this is in Greek:
+\selectlanguage{greek}
+( add your text here )
+
+\selectlanguage{english}
+This is back in English.
+\end{Verbatim}
+
+I have not got Chinese or Thai working properly yet. There is an example file in \sverb|tests/languages.tex|
+showing this.
+
+%%
 \section{Contents and Index}
 
 The table of contents should get typeset entirely automatically if you use this template.
