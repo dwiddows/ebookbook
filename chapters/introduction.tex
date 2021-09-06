@@ -24,11 +24,11 @@ and added to by Leslie Lamport to make \latex \citep{lamport1985latex}.
 reasons for preferring \latex to one of the more `point, click, and type' text editors:
 it handles figures, tables, chapters, sections, headings, cross-references, 
 bibliographic references, mathematical equations, and many more things that can be 
-notoriously irritating and time consuming to get right. And it's easy to use different typesetting
+notoriously irritating and time consuming to get right. And it's possible to use different typesetting
 programs and commands to create all sorts of output from \latex input, including eBooks.
 
 If \tex and \latex are entirely unfamiliar to you, even this automation and flexibility 
-may not make it the best choice for you, because there is quite a technical 
+may not make it the best choice for you to write a book, because there is quite a technical 
 learning-curve for \latex. It's not just writing text, it's writing commands telling the
 typesetting program how to `compile' the output document --- in many ways, \latex
 feels much more like programming than writing a Google or Microsoft Word document. But if
@@ -38,14 +38,15 @@ probably well aware of its benefits (and its hassles).
 In summary, if you've used \latex to write papers, now you want to write an eBook,
 and you need to figure out how to do this, then this little book and
 the open source template that it comes from might be ideal.
-There are alternatives --- alternative ways to make eBooks, and about
-using \latex to make eBooks. This book is not intended to be comprehensive. It's
-intended to enable you to make an eBook end-to-end quickly, cheaply, and easily.
+There are other ways to make eBooks, and other ways to use
+\latex to make eBooks --- this book isn't comprehensive, but it might just
+enable you to make an eBook end-to-end quickly, cheaply, and easily.
 
 %%%
 \section{How to Use this Book}
 
-This is a book about itself --- it's written using the templates and tools described in 
+This is a book about itself --- it's about how it was written using
+the templates and tools described in 
 the next few chapters. These are the main ways you can use this material:
 
 \begin{itemize}
@@ -58,17 +59,19 @@ the next few chapters. These are the main ways you can use this material:
 \end{itemize}
 
 It follows that you could recreate this eBook for yourself, following just the process
-described in the book: which is basically to clone the GitHub or Overleaf 
-project as a template, build
+described in the book: which is basically to clone the GitHub project as a template, build
 the project, send the output HTML document through an ePub converter, and send this to
-your eReader device. So why would anyone buy this book if it's free? Because
-anyone who reads the steps above and immediately thinks ``hmmm \ldots git clone \ldots build.sh \ldots 
-pipe \ldots ship \ldots yeah, alright'' will expect that it will take a little while to get working 
-end to end, that their time is valuable, and that the price tag of this book is small
-compared. So if you want to read this book for free on your eReader,
+your eReader device.
+
+So why would anyone buy a book if it's free? Because
+anyone who reads the steps above and with enough familiarity to think
+``git clone \ldots check dependencies \ldots  build.sh \ldots 
+check dependencies again \ldots build.sh \ldots  \ldots yeah, alright'' will expect it to take
+more than a few minutes, hopefully less than an hour, and price their own time realistically.
+If you want to read this book for free on your eReader,
 compiling from source is the way to go about it. Or if you want to just click `buy' now and send the author most of the
 \$2.99 price tag, please go ahead, and thank you!
 
 Either way, if you're not put off by \latex and \smalltt{git}
 commands, keep reading. I hope the book is useful to you, and wish you 
-all the best of luck and perseverance writing your book!
+all the best of luck and persistence writing your book!
