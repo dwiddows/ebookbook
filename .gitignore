@@ -278,16 +278,6 @@ TSWLatexianTemp*
 # Makeindex log files
 *.lpz
 
-## Build outputs from build.sh and tests/build_diagnostic.sh
-ebookbook.css
-ebookbook.epub
-ebookbook.html
-ebookbook.mobi
-ebookbook.pdf
-ebookbook.tmp
-ebookbook*x.png
-epub_images/
-images/*.xbb
+## Build outputs: build.sh and tests/build_diagnostic.sh write everything to build/
+build/
 tests/output/
-tests/kindle_diagnostic*.epub
-tests/kindle_diagnostic.pdf

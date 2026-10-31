@@ -4,9 +4,10 @@
 #
 # Builds the Kindle diagnostic book (tests/kindle_diagnostic.tex) as two epubs
 # from one make4ht run, to send to a Kindle and compare test by test:
-#   tests/kindle_diagnostic-raw.epub  make4ht output as it is
-#   tests/kindle_diagnostic.epub      after lib/epub_postprocess.sh, as in build.sh
-# plus tests/kindle_diagnostic.pdf. Works in tests/output/kindle_diagnostic/.
+#   kindle_diagnostic-raw.epub  make4ht output as it is
+#   kindle_diagnostic.epub      after lib/epub_postprocess.sh, as in build.sh
+# plus kindle_diagnostic.pdf, all in build/kindle_diagnostic/ (with the build's
+# other files).
 # Don't run it while ./build.sh is running: make4ht runs that overlap can
 # collide on tex4ht's temporary files and hang.
 
@@ -20,9 +21,9 @@ KPCLI="$HOME/Applications/Kindle Previewer 4.app/Contents/MacOS/KindlePreviewer4
 cd "$(dirname "$0")"
 TESTS=$PWD
 ROOT=$(cd .. && pwd)
-BUILD=output/$DIAGFILE
-mkdir -p $BUILD
-cd $BUILD
+BUILD=build/$DIAGFILE
+mkdir -p "$ROOT/$BUILD"
+cd "$ROOT/$BUILD"
 rm -rf raw images epub_images
 # Copy the images the diagnostic uses (Calibre won't follow a symlink).
 mkdir images
@@ -71,7 +72,7 @@ else
     convert_epub $DIAGFILE.html $DIAGFILE.epub "" "fixed"
     (cd raw && convert_epub $DIAGFILE.html $DIAGFILE-raw.epub "" "raw")
 fi
-cp $DIAGFILE.epub $DIAGFILE.pdf raw/$DIAGFILE-raw.epub "$TESTS/"
+mv raw/$DIAGFILE-raw.epub .
 
 if [[ -x $KPCLI ]]; then
     rm -rf kp && mkdir kp
@@ -79,4 +80,4 @@ if [[ -x $KPCLI ]]; then
     echo "Kindle Previewer conversion log (fixed version):"
     tail -n +4 kp/Logs/*.csv | cut -d, -f1-2 | sed 's#/[^ ]*/mobi-[^/]*/##'
 fi
-echo "Built tests/$DIAGFILE.epub and tests/$DIAGFILE-raw.epub ($STAMP)."
+echo "Built $BUILD/$DIAGFILE.epub and $BUILD/$DIAGFILE-raw.epub ($STAMP)."
