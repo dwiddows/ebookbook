@@ -2,6 +2,10 @@
 
 # Originally written by Dominic Widdows, 2021. Updated in 2026 with help from AI agents.
 
+# Builds this book, "LaTeX to eBook", as a PDF and as an epub for Kindle and other
+# eReaders. The book is about its own build: its chapters (in chapters/) explain
+# each step here and the pitfalls the steps work around.
+
 # Usage: ./build.sh        build PDF, HTML and epub outputs.
 #        ./build.sh pdf    build the PDF only.
 #        ./build.sh clean  remove outputs.

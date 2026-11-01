@@ -6,7 +6,7 @@
 # The PDF is never touched. Called by build.sh and tests/build_diagnostic.sh.
 #
 # These fixes go into the HTML itself because ebook-convert drops CSS rules
-# that target MathML elements.
+# that target MathML elements. The book's chapters explain each problem and fix.
 
 MAIN=$1
 LIB="$(cd "$(dirname "$0")" && pwd)"
