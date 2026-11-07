@@ -40,14 +40,21 @@ For example, the cover image for the title page of this book is included using t
 
 Typically for webpages and eBooks, the size of images is expected to vary with the page size and settings,
 so using a context-sensitive width like a proportion of the linewidth is more appropriate than a fixed-width
-declaration like `10cm'. Many eReaders enable users to click on images to see them in more detail, which helps.
+declaration like `10cm'. On its own, \smalltt{make4ht} turns any width into a fixed number of pixels,
+which makes images small on a Kindle. The file \smalltt{lib/ebook-layout.cfg} changes this, so that
+\sverb|width=0.5\linewidth| fills half the screen.
+Many eReaders enable users to click on images to see them in more detail, which helps.
 
 One frequent problem is that HTML typesetting using \smalltt{make4ht} or a similar process doesn't always preserve the
 aspect ratio of your images. For example, the same setting may be used for width and height, making all images square.
 The problem is solved by adding a bounding box file using the \smalltt{extractbb} command, which is typically included
 with \tex distributions. For this book, this step is included in the project's \smalltt{build.sh} script, at least for \smalltt{.jpg} and
 \smalltt{.png} files, and it can easily be extended to more filetypes. Or you can run \smalltt{extractbb -x} on these files
-yourself.
+yourself. Given a list of files, \smalltt{extractbb} only processes the last one, so run it once per file, for example:
+
+\begin{Verbatim}[fontsize=\small]
+ls images/*.png images/*.jpg | xargs -n 1 extractbb -x
+\end{Verbatim}
 
 Images are often put in the \latex \smalltt{figure} environment, which can include captions and a label for references.
 For example, the map in Figure \ref{fig:sea_map} is created using the commands:
@@ -88,8 +95,7 @@ wraparound text to work.
  %%
 \section{Tables}
 
-Basic tables typeset just fine in \smalltt{.epub} format. They don't format properly in the Kindle preview of \smalltt{.mobi} files
-sent via email, but look better in the Kindle \smalltt{.epub} preview.
+Basic tables typeset just fine in \smalltt{.epub} format.
 
 For example, the following \latex gives the output in Table \ref{tab:artist_works}.
 
@@ -130,14 +136,18 @@ and check output carefully.
 %%
 \section{Equations}
 
-One of the benefits of \latex is that it's easy to typeset mathematical notation like formulae and equations. So far these look to work well in HTML and eBook formats.
+One of the benefits of \latex is that it's easy to typeset mathematical notation like formulae and equations.
+\smalltt{make4ht} turns them into MathML, a standard for mathematics on the web, and displayed equations
+like the ones below work well in HTML and eBook formats. Math in the middle of a sentence is harder:
+Kindle sets it in a smaller font, raised above the line. The build fixes this for simple formulas,
+but accents such as \sverb|\hat{x}| and matrices are best kept in displayed equations.
 
 For example, here is the \tex and its rendering for Euler's formula:
 
 \begin{Verbatim}[fontsize=\scriptsize]
 \[ e^{ix} = \cos x + i \sin x \]
 \end{Verbatim}
-\[ e^{i\pi} = -1 \]
+\[ e^{ix} = \cos x + i \sin x \]
 
 And here is the corresponding \tex and output for a Fourier series:
 

@@ -281,3 +281,6 @@ TSWLatexianTemp*
 ## Build outputs: build.sh and tests/build_diagnostic.sh write everything to build/
 build/
 tests/output/
+
+## JetBrains editor settings
+.idea/

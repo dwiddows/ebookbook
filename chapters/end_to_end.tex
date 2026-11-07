@@ -35,13 +35,17 @@ the dependencies you'll need to find and install.
 These include:
 
 \begin{itemize}
-\item A \latex system, including a program called \smalltt{make4ht} or the older \smalltt{htlatex}.
+\item A \latex system, including a program called \smalltt{make4ht}.
   This is crucial for making HTML output, as described in Section
   \ref{sec:html2epub}.
+\item Python 3, which runs the small scripts in the \smalltt{lib} folder
+  that tidy up the HTML for Kindle devices.
 \item Some eBook converter software. The one recommended below is
   \smalltt{ebook-convert}, from Calibre (see
-  {\small \url{https://manual.calibre-eBook.com/ebook-convert.html}}, or just
+  {\small \url{https://manual.calibre-ebook.com/generated/en/ebook-convert.html}}, or just
   search the web).
+\item (Optional) ImageMagick, whose \smalltt{magick} command makes smaller
+  JPEG copies of your images for the eBook.
 \item Some eReader or previewer software, such as a Kindle device or
   app, or another eBook app such as Calibre (see above). You'll want
   this for seeing how your book looks `for real' (though of course,
@@ -93,19 +97,21 @@ available it should even make the eBook files described in the next
 section.
 
 If this doesn't work, you may need to find and install some
-\smalltt{pdflatex} and most importantly \smalltt{make4ht} or
-\smalltt{htlatex} programs that work on your machine. (See the
+\smalltt{pdflatex} and most importantly \smalltt{make4ht}
+programs that work on your machine. (See the
 Dependencies section above.)
 
-So long as you can run ``\sverb|make4ht ebookbook|'' and create a file \sverb|ebookbook.html|,
+The build puts everything it makes in a folder called \smalltt{build},
+so your source files stay tidy, and \smalltt{./build.sh clean} deletes it.
+So long as \smalltt{./build.sh} creates the file \sverb|build/ebookbook.html|,
 you can go on to the next step.
 
 %%
-\section{From HTML to ePub ... or Mobi}
+\section{From HTML to ePub}
 \label{sec:html2epub}
 
 The most important output from the previous step is a file called
-\smalltt{ebookbook.html}.  This is formatted for display as a webpage
+\smalltt{build/ebookbook.html}.  This is formatted for display as a webpage
 in a browser. This is different from the more common use of \tex to
 make documents such as academic papers, which are nowadays normally
 created as PDF files. An HTML file is a collection of content (for
@@ -128,22 +134,21 @@ and using a converter such as Calibre \smalltt{ebook-convert} or
 Amazon's {\em Kindle Previewer} tool.
 Like saving an image as a
 \smalltt{.jpg}, \smalltt{.gif} or \smalltt{.png}, you'll need to select a
-format to convert to. Options include:
+format to convert to. Choose \smalltt{.epub}, a
+cross-platform format for electronic books. Amazon's older
+\smalltt{.mobi} format is no longer accepted for publishing on Kindle,
+and Kindle devices now take \smalltt{.epub} files directly.
 
-\begin{itemize}
-  \item \smalltt{.epub} is a cross-platform format that it supposed to
-    be used for any electronic book.
-  \item \smalltt{.mobi} is an old Amazon Kindle format --- and it
-    happens to be the one you can use for e-mailing files to your Kindle.
-\end{itemize}
-
-The \smalltt{build.sh} script that comes with this book uses
-\smalltt{ebook-convert} and creates both \smalltt{.epub} and
-\smalltt{.mobi} files as output. This also takes command-line
+The \smalltt{build.sh} script that comes with this book first tidies up
+the HTML for Kindle devices, and then uses \smalltt{ebook-convert} to
+create an \smalltt{.epub} file. The command takes
 arguments so that you can specify metadata like the author name
 and cover image:
 
 {\flushleft \quad \smalltt{ebook-convert ebookbook.html ebookbook.epub --cover images/cover.jpg --authors "YOUR NAME" --language English}}
+
+\smalltt{ebook-convert} marks the \sverb|--cover| image as the book's cover,
+and eReaders show it in their library view.
 
 %%
 \section{Previewing Your Book on an eReader}
@@ -157,7 +162,7 @@ or an eReader device such as a Kindle.
 Assuming that most of your writing will be on a computer, that's
 probably the first place you'll want to see your work. For example, I
 usually open the Calibre app and load the \sverb|.epub| file, or do both at
-once with the command \smalltt{calibre ebookbook.epub}. Once the book is imported and loaded, this gives 
+once with the command \smalltt{calibre build/ebookbook.epub}. Once the book is imported and loaded, this gives 
 the result shown in Figure \ref{fig:calibre_screenshot}.
 
 \begin{figure}
@@ -172,19 +177,14 @@ the result shown in Figure \ref{fig:calibre_screenshot}.
 To view on an eReader device or phone, you often have to send it to
 the device or load it on in some way --- again, there are a range of
 methods. For Amazon Kindles, you need to find / set up an email address for the
-device itself, and send the book to that email address. As an extra
-complexity, this method only works using the older \smalltt{.mobi}
-files.  Also Kindle preloads like this do not (at the moment)
-display the cover page of the book in your library or menu page,
-because Amazon retrieves this information for {\em published} books
-from elsewhere. So the preview in the library view is somewhat
-disappointing, but it works (Figure \ref{fig:kindle_screenshot}).
+device itself, and send the \smalltt{.epub} file to that email address.
+It usually arrives within a few minutes (Figure \ref{fig:kindle_screenshot}).
 
 Another way is to sign up for a publishing account and start to submit your book for
 publication. On the Kindle publishing site, for example, this process includes opportunities
 to preview your book as it would appear on a phone and a Kindle device, before you set up
 pricing options and get closer to hitting `publish'. For this book at least, these online previewers
-gave a more accurate rendering of how the book will look to readers than emailing a \smalltt{.mobi} file to my
+gave a more accurate rendering of how the book will look to readers than emailing a file to my
 Kindle device.
 
 One way or another, try to make sure you can make an eBook file and view it somewhere.
