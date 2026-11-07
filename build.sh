@@ -20,6 +20,8 @@
 # If you change the name of your main TeX source file, change this variable to the new name.
 MAINFILE=ebookbook
 AUTHOR="Dominic Widdows" # Of course, you'll want to change this.
+TITLE="LaTeX to eBook 2026: The Book About Itself" # And this, to match cover_page.tex.
+COVERIMAGE=images/cover.png # The eBook cover: portrait, about 1600 x 2560 pixels.
 PDFLATEX="pdflatex -interaction=nonstopmode"
 cd "$(dirname "$0")"
 ROOT=$PWD
@@ -71,13 +73,13 @@ elif [[ $# -eq 0 ]]
        # Fix the HTML for Kindle: inline math, footnote pop-ups, contents page, JPEG images.
        "$ROOT/lib/epub_postprocess.sh" $MAINFILE
 
-       COVER=images/cover.png
+       COVER=$COVERIMAGE
        if command -v magick > /dev/null; then
-           magick images/cover.png -background white -alpha remove -alpha off -quality 85 -strip epub_images/cover.jpg
-           COVER=epub_images/cover.jpg
+           magick $COVERIMAGE -background white -alpha remove -alpha off -quality 85 -strip epub_images/epub_cover.jpg
+           COVER=epub_images/epub_cover.jpg
        fi
        # Chapters are <h2> in make4ht's output; they make the epub's navigation menu.
-       ebook-convert $MAINFILE.html $MAINFILE.epub --cover $COVER --authors "$AUTHOR" --language English \
+       ebook-convert $MAINFILE.html $MAINFILE.epub --cover $COVER --title "$TITLE" --authors "$AUTHOR" --language English \
            --use-auto-toc --level1-toc "//h:h2" --level2-toc "" --level3-toc "" \
            --toc-filter "^(References|Bibliography|\[?\d+(\.\d+)*\]?)$" > /dev/null \
            && echo "Wrote build/$MAINFILE.epub"

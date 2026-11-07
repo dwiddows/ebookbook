@@ -148,7 +148,7 @@ create an \smalltt{.epub} file. The command takes
 arguments so that you can specify metadata like the author name
 and cover image:
 
-{\flushleft \quad \smalltt{ebook-convert ebookbook.html ebookbook.epub --cover images/cover.jpg --authors "YOUR NAME" --language English}}
+{\flushleft \quad \smalltt{ebook-convert ebookbook.html ebookbook.epub --cover images/cover.png --title "YOUR TITLE" --authors "YOUR NAME" --language English}}
 
 \smalltt{ebook-convert} marks the \sverb|--cover| image as the book's cover,
 and eReaders show it in their library view.
@@ -206,7 +206,7 @@ One way or another, try to make sure you can make an eBook file and view it some
 
 Hopefully by now you're at the point where there is an eBook file that you can easily read on some eReader device or app. 
 
-The next thing you should do is change something. Change the title in the \smalltt{cover\_page.tex} file from `\latex to eBook 2021'
+The next thing you should do is change something. Change the title in the \smalltt{cover\_page.tex} file from `\latex to eBook 2026'
 to whatever title you want. Rerun the steps above and hopefully you'll see exactly what you intended: a copy of the eBook, but with
 your title instead.
 
@@ -217,7 +217,7 @@ start checking in your work in some way that makes it clear that it's a new proj
 merged back in at some point.
 
 Experiment with removing directives to \sverb|\input| different chapters, and watch the book get shorter. Try changing image files to some other graphic
-and make sure they change appropriately. And try editing the AUTHOR in the \smalltt{build.sh} file and make sure the right name shows up when the book is viewed in an eReader.
+and make sure they change appropriately. And try editing the TITLE and AUTHOR in the \smalltt{build.sh} file and make sure the right title and name show up when the book is viewed in an eReader.
 
 If this works, you can be pretty confident that your book is on the right track. You'll be able to organize the content into \tex files, image files, etc., and create an eBook!
 
