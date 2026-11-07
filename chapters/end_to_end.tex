@@ -106,6 +106,9 @@ so your source files stay tidy, and \smalltt{./build.sh clean} deletes it.
 So long as \smalltt{./build.sh} creates the file \sverb|build/ebookbook.html|,
 you can go on to the next step.
 
+One practical warning: don't start a second build while one is still running, for example from another terminal window.
+\smalltt{make4ht} writes temporary files with fixed names, and two runs can overwrite each other's files, giving broken output or a build that never finishes.
+
 %%
 \section{From HTML to ePub}
 \label{sec:html2epub}

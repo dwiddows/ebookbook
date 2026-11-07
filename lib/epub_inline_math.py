@@ -10,7 +10,8 @@ the Unicode letters such as U+2112. Anything else (accents, tables) is left as
 MathML. Display math and the PDF are never touched,
 except that every MathML table (matrix) gets explicit rowlines/columnlines/frame
 "none": tex4ht writes rowlines='', which Kindle draws as rules between rows;
-and \big( / \bigg( brackets become stretchy fences, like \left( \right).
+\big( / \bigg( brackets become stretchy fences, like \left( \right); and
+equation link targets move out of the MathML, where Kindle can't reach them.
 
 Usage (called from epub_postprocess.sh): python3 epub_inline_math.py main.html
 """
@@ -189,6 +190,21 @@ def stretchy(match):
     return f"<mo{attrs} stretchy='true' symmetric='true'>"
 
 
+# Equation labels: tex4ht puts the link target for \ref on an <mstyle> inside
+# the MathML, and Kindle can't follow a link there. Move each target to an
+# empty anchor just before the <math> element.
+BLOCK_MATH = re.compile(r"<math\b[^>]*display='block'.*?</math>", re.S)
+LABEL = re.compile(r"<mstyle class='label' id='([^']+)'></mstyle>")
+
+
+def anchor_labels(match):
+    ids = LABEL.findall(match.group(0))
+    anchor_labels.moved += len(ids)
+    return ''.join(f"<a id='{i}'></a>" for i in ids) + LABEL.sub('', match.group(0))
+
+
+anchor_labels.moved = 0
+
 MTABLE = re.compile(r"<mtable\b([^>]*)>")
 LINE_ATTRS = re.compile(r"""\s(?:rowlines|columnlines|frame|class|style)=(?:'[^']*'|"[^"]*")""")
 
@@ -205,8 +221,9 @@ if __name__ == '__main__':
     html = INLINE_MATH.sub(replace, html)
     html, tables = MTABLE.subn(no_rules, html)
     html, fences = SIZED_FENCE.subn(stretchy, html)
+    html = BLOCK_MATH.sub(anchor_labels, html)
     with open(path, 'w', encoding='utf-8') as f:
         f.write(html)
     print(f'epub_inline_math: {replace.done} inline formulas converted to HTML, '
           f'{replace.kept} left as MathML; {tables} matrices set to no rules; '
-          f'{fences} big brackets made stretchy')
+          f'{fences} big brackets made stretchy; {anchor_labels.moved} equation link targets moved out of MathML')

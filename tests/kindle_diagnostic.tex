@@ -168,9 +168,9 @@ f\bigl(\tfrac{1}{2}\bigr) = \Bigl(\frac{a}{b}\Bigr)^2
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \kgroup{C. Display math and equation links}
 
-\ktest{C1}{Numbered equation and a link to it}{OPEN}
+\ktest{C1}{Numbered equation and a link to it}{FIXED}
 \noindent\textbf{Source:} \sverb|\begin{equation}\label{...}| and \sverb|Equation~\ref{...}|.\par
-\kcheck{tapping the link below jumps to the equation.}{the link does nothing (expected: the link target sits inside the MathML, and Kindle Previewer reports it as unresolved).}
+\kcheck{tapping the link below jumps to the equation.}{the link does nothing (expected in the raw version, where the link target sits inside the MathML).}
 \begin{equation}
 y = m x + c
 \label{eq:kdiag}

@@ -8,8 +8,7 @@
 #   kindle_diagnostic.epub      after lib/epub_postprocess.sh, as in build.sh
 # plus kindle_diagnostic.pdf, all in build/kindle_diagnostic/ (with the build's
 # other files). The tests check the Kindle fixes that the book's chapters describe.
-# Don't run it while ./build.sh is running: make4ht runs that overlap can
-# collide on tex4ht's temporary files and hang.
+# It works in its own folder, so it can run at the same time as ./build.sh.
 
 DIAGFILE=kindle_diagnostic
 AUTHOR="LaTeX to eBook"

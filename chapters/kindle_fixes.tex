@@ -1,0 +1,84 @@
+%%
+\chapter{Fixing the HTML for Kindle}
+\label{chapter:kindle}
+
+\smalltt{make4ht} writes HTML for web browsers, and a few things in it come out badly on a Kindle.
+\smalltt{ebook-convert} drops style rules for mathematics, so the fixes go into the HTML itself rather than a stylesheet.
+Between \smalltt{make4ht} and \smalltt{ebook-convert}, \smalltt{build.sh} runs \smalltt{lib/epub\_postprocess.sh}, which makes these fixes.
+The PDF is not affected.
+This chapter goes through each fix, with an example, so that if you are reading this on a Kindle you can see the result.
+
+%%
+\section{Inline Math}
+
+Kindle sets any MathML in the middle of a sentence in a smaller font, raised above the baseline, and this spreads the lines around it apart.
+So the build turns simple inline math into ordinary italic text, with subscripts, superscripts, and a slash for fractions.
+For example, $x_i^2 + y_i^2 = r^2$ and $\frac{a+b}{2}$ should sit on the baseline like the words around them.
+
+Accents and matrices stay as MathML, so $\hat{x}$ is still raised.
+Keep these in displayed equations where you can.
+
+%%
+\section{Matrices}
+
+\smalltt{make4ht} writes an empty setting for the lines between the rows of every matrix, and Kindle draws these as horizontal rules.
+The build switches them off, so the matrices in the Equations section of Chapter \ref{chapter:typesetting} should have no lines inside them.
+
+%%
+\section{Footnotes}
+
+Footnotes made with \sverb|\footnote{...}| can appear as pop-ups on a Kindle.\footnote{This is a footnote.
+On a Kindle, it should appear in a pop-up over the page.}
+For that, the marker in the text and the note must link to each other.
+\smalltt{make4ht} makes only the link from the marker, so the build adds the link back.
+On eReaders without pop-ups, footnotes become endnotes at the back of the book, so ideally each footnote should be written to make sense on its own.
+
+%%
+\section{The Contents Page}
+
+\smalltt{make4ht} separates the entries on the contents page with line breaks, and Kindle draws each of these as a blank line, so the contents come out double-spaced.
+The build rewrites each entry as its own paragraph, with chapters in bold and sections indented, and \smalltt{lib/ebook-layout.cfg} sets the spacing between them.
+The contents page at the start of this book shows the result.
+
+%%
+\section{Image Files}
+
+Kindle converts every PNG image into a large, high-quality JPEG, but passes JPEG images through unchanged.
+Amazon charges a delivery fee for each megabyte of a book sold at the 70\% royalty rate, so image size costs money on every sale.
+If ImageMagick is installed, the build gives the eBook compressed JPEG copies of PNG images, sized for Kindle screens, while the PDF keeps the originals.
+For this book, the compressed copies shrink the Kindle file that Kindle Previewer makes from 1.8\,MB to 0.6\,MB, with no visible loss of quality, but do check the images in your own book's output.
+
+%%
+\section{Code Listings}
+
+A Kindle screen fits about 52 characters of typewriter text on a line at normal font sizes.
+Longer lines wrap, which makes code hard to read, so keep lines in \sverb|Verbatim| listings to 52 characters or fewer:
+
+\begin{Verbatim}[fontsize=\small]
+for f in images/*.png; do
+    extractbb -x "$f"
+done
+\end{Verbatim}
+
+%%
+\section{Equation Links}
+
+tex4ht puts the target of a link to a numbered equation inside the MathML, where Kindle can't follow it.
+The build moves each target to just before the equation, so links like the one to Equation~\ref{eq:pythagoras} below work on a Kindle too:
+\begin{equation}
+a^2 + b^2 = c^2
+\label{eq:pythagoras}
+\end{equation}
+
+%%
+\section{Checking Your Own Book}
+
+This book is its own test.
+As described in Section~\ref{sec:how_to_use}, its source is on GitHub, so you can build it, send it to your Kindle, and check each example in this chapter.
+Then change things and see what happens.
+
+For a closer look, \smalltt{tests/build\_diagnostic.sh} builds a short test book in \smalltt{build/kindle\_diagnostic}, in two versions: one as \smalltt{make4ht} writes it, and one with the fixes in this chapter.
+Its tests cover more cases, such as Greek text through \smalltt{babel}, big brackets, and caption widths, and each says what you should see when it works and when it fails.
+
+Amazon's free Kindle Previewer has a command-line converter, which reports problems such as links that don't go anywhere, without needing a device.
+The diagnostic build runs it if it is installed.
