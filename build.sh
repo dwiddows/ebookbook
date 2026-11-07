@@ -23,6 +23,7 @@ AUTHOR="Dominic Widdows" # Of course, you'll want to change this.
 TITLE="LaTeX to eBook 2026: The Book About Itself" # And this, to match cover_page.tex.
 COVERIMAGE=images/cover.png # The eBook cover: portrait, about 1600 x 2560 pixels.
 PDFLATEX="pdflatex -interaction=nonstopmode"
+shopt -s nullglob # So images/*.jpg means no files, rather than itself, when there are none.
 cd "$(dirname "$0")"
 ROOT=$PWD
 
