@@ -2,13 +2,16 @@
 % This file is the "main" or root file for the book. It describes what packages
 % and content should be included in what order.
 
-\documentclass[pagesize=auto,bibliography=totocnumbered]{scrbook}
+\documentclass[pagesize=auto,bibliography=totocnumbered,index=totoc]{scrbook}
 
 \input{lib/packages}
 \input{lib/commands}
 
 % This line stops the insertion of extra blank pages between chapters.
 \ifdefined\HCode{\KOMAoptions{twoside=false}} \fi
+
+% The PDF gets an index. eReaders have search instead, so the eBook doesn't.
+\ifdefined\HCode\else\makeindex\fi
 
 \begin{document}
 
@@ -34,5 +37,7 @@
 
 \bibliographystyle{apalike}
 \bibliography{bibliography.bib}
+
+\ifdefined\HCode\else\printindex\fi
 
 \end{document}

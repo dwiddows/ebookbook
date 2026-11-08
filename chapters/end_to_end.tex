@@ -35,16 +35,16 @@ the dependencies you'll need to find and install.
 These include:
 
 \begin{itemize}
-\item A \latex system, including a program called \smalltt{make4ht}.
+\item A \latex system, including a program called \smalltt{make4ht}.\index{make4ht}
   This is crucial for making HTML output, as described in Section
   \ref{sec:html2epub}.
 \item Python 3, which runs the small scripts in the \smalltt{lib} folder
   that tidy up the HTML for Kindle devices.
 \item Some eBook converter software. The one recommended below is
-  \smalltt{ebook-convert}, from Calibre (see
+  \smalltt{ebook-convert}, from Calibre (see\index{ebook-convert}\index{Calibre}
   {\small \url{https://manual.calibre-ebook.com/generated/en/ebook-convert.html}}, or just
   search the web).
-\item (Optional) ImageMagick, whose \smalltt{magick} command makes smaller
+\item (Optional) ImageMagick, whose \smalltt{magick} command makes smaller\index{ImageMagick}
   JPEG copies of your images for the eBook.
 \item Some eReader or previewer software, such as a Kindle device or
   app, or another eBook app such as Calibre (see above). You'll want
@@ -150,7 +150,7 @@ and cover image:
 
 {\flushleft \quad \smalltt{ebook-convert ebookbook.html ebookbook.epub --cover images/cover.png --title "YOUR TITLE" --authors "YOUR NAME" --language English}}
 
-\smalltt{ebook-convert} marks the \sverb|--cover| image as the book's cover,
+\smalltt{ebook-convert} marks the \sverb|--cover| image as the book's cover,\index{cover image}
 and eReaders show it in their library view.
 
 %%

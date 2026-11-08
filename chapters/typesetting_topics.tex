@@ -25,7 +25,7 @@ works in the same way.
 This isn't rocket science, but if you've ever tried
 renumbering by-hand, you know how valuable this is! Similarly, bibliographic references such as
 \sverb|\cite{knuth1984texbook}| work correctly, giving a citation looking like \cite{knuth1984texbook}.
-So far \textsc{BibTeX} has worked fine for this book.
+So far \textsc{BibTeX} has worked fine for this book.\index{BibTeX}
 
 %%
 \section{Graphics}
@@ -50,7 +50,7 @@ aspect ratio of your images. For example, the same setting may be used for width
 The problem is solved by adding a bounding box file using the \smalltt{extractbb} command, which is typically included
 with \tex distributions. For this book, this step is included in the project's \smalltt{build.sh} script, at least for \smalltt{.jpg} and
 \smalltt{.png} files, and it can easily be extended to more filetypes. Or you can run \smalltt{extractbb -x} on these files
-yourself. Given a list of files, \smalltt{extractbb} only processes the last one, so run it once per file, for example:
+yourself. Given a list of files, \smalltt{extractbb} only processes the last one, so run it once per file, for example:\index{extractbb}
 
 \begin{Verbatim}[fontsize=\small]
 ls images/*.png images/*.jpg | xargs -n 1 extractbb -x
@@ -186,7 +186,7 @@ This is in Greek:
 Αυτό είναι στα ελληνικά.
 
 \selectlanguage{english}
-These examples are made using the \sverb|babel| package, and by setting
+These examples are made using the \sverb|babel| package, and by setting\index{babel}
 encoding instructions in the initial document setup (see the \sverb|lib/packages.tex| file),
 and then in the \latex source writing something like:
 
@@ -211,15 +211,49 @@ The story of how traditional indexes and concordances influenced the design of t
 indexes used by search engines is fascinating \citep[Ch 1]{witten1999gigabytes}.
 For electronic books, this process is quite complete: the index is created automatically,
 and accessed via the search interface, not by the user scrolling through topics in alphabetical order.
-Therefore I'm not including an explicit index section.
+Therefore the eBook version of this book has no index.
 
-If you want to make a paper
-version of your book as well as an eBook, you may want to make an alphabetical index.
-In this case, it may be worth trying a
-more sophisticated template such as the one that comes with Clemens
-Lode's book on using \latex for books and eBooks \citep{lode2019better}.
-This includes conditional compilation so that different commands and even sections are used
-for the PDF version that leads to a paper book and the HTML version that leads to an eBook.
+A paper book still needs an alphabetical index, so the PDF version of this book has one.
+Section~\ref{sec:conditionals} shows how.
+
+%%
+\section{PDF or eBook: Conditionals}
+\label{sec:conditionals}
+
+Many authors want a PDF or paperback as well as an eBook, and the same source can make both.
+Sometimes the two versions need different commands.
+When \smalltt{make4ht} runs, it uses a system called tex4ht\index{tex4ht}, which defines a command called \sverb|\HCode|\index{HCode@\texttt{\textbackslash HCode}}, and \smalltt{pdflatex} doesn't, so a test for \sverb|\HCode| tells you which version is being made:
+
+\begin{Verbatim}[fontsize=\small]
+\ifdefined\HCode
+  % Commands for the HTML and eBook.
+\else
+  % Commands for the PDF.
+\fi
+\end{Verbatim}
+
+In the HTML version, \sverb|\HCode{...}| writes its argument straight into the HTML file.
+For example, the \sverb|\nextpage| command in \smalltt{lib/commands.tex} writes a Kindle page break into the HTML, and calls \sverb|\newpage| in the PDF.
+\sverb|\HCode| is not defined in the PDF version, so use it only inside a test like this.
+
+This book makes an index\index{index} for the PDF but not for the eBook.
+The preamble in \smalltt{ebookbook.tex} has:
+
+\begin{Verbatim}[fontsize=\small]
+\ifdefined\HCode\else\makeindex\fi
+\end{Verbatim}
+
+\noindent and the back matter has:
+
+\begin{Verbatim}[fontsize=\small]
+\ifdefined\HCode\else\printindex\fi
+\end{Verbatim}
+
+Without \sverb|\makeindex|, \latex ignores the \sverb|\index{...}| entries in the text, so they stay in the source for both versions.
+\smalltt{build.sh} runs \smalltt{makeindex} between the \smalltt{pdflatex} passes to sort the entries into alphabetical order.
+
+The settings in \smalltt{lib/ebook-layout.cfg} change only the eBook, because only \smalltt{make4ht} reads that file.
+For bigger differences, such as whole sections in only one version, Clemens Lode's template for books and eBooks takes conditionals further \citep{lode2019better}.
 
 %%
 \section{Difficulties}

@@ -13,7 +13,7 @@
 # Everything the build makes goes in the build/ folder, including the finished
 # build/ebookbook.pdf and build/ebookbook.epub. The source files stay as they are.
 
-# Assumes that you have programs installed including pdflatex, bibtex, make4ht,
+# Assumes that you have programs installed including pdflatex, bibtex, makeindex, make4ht,
 # python3, and ebook-convert from Calibre. ImageMagick (magick) is optional:
 # with it, the epub gets smaller JPEG copies of the images.
 
@@ -43,7 +43,9 @@ build_pdf() {
     # skips writing the PDF (and embedding images) to save time.
     $PDFLATEX -draftmode $MAINFILE > /dev/null
     bibtex $MAINFILE > /dev/null || echo "*** bibtex errors: see build/$MAINFILE.blg ***"
+    makeindex -q $MAINFILE
     $PDFLATEX -draftmode $MAINFILE > /dev/null
+    makeindex -q $MAINFILE # Again, as the bibliography and index can move pages.
     $PDFLATEX $MAINFILE > /dev/null || echo "*** pdflatex errors: see build/$MAINFILE.log ***"
     n=$(grep -c "Citation .* undefined" "$MAINFILE.log")
     if [[ $n -gt 0 ]]; then echo "*** $n undefined citations in build/$MAINFILE.log ***"; fi
