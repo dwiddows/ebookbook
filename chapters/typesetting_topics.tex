@@ -252,6 +252,28 @@ The preamble in \smalltt{ebookbook.tex} has:
 Without \sverb|\makeindex|, \latex ignores the \sverb|\index{...}| entries in the text, so they stay in the source for both versions.
 \smalltt{build.sh} runs \smalltt{makeindex} between the \smalltt{pdflatex} passes to sort the entries into alphabetical order.
 
+Packages loaded only for the PDF can still affect the eBook.
+Some packages write their own commands into the \smalltt{.aux} file, and \smalltt{make4ht} reads the same file, where those commands are undefined and stop the build with errors.
+For example, a book with numbered citations can mark its footnotes with symbols (\textasteriskcentered, \textdagger, \textdaggerdbl) that restart on each page, so the two can't be confused, using the \sverb|perpage|\index{perpage} package.
+The eBook has no fixed pages, so it keeps numbered footnotes.
+\sverb|perpage| writes \sverb|\pp@pagectr| commands into the \smalltt{.aux} file, so the HTML version defines that command to do nothing:
+
+\begin{Verbatim}[fontsize=\small]
+\ifdefined\HCode
+  \makeatletter
+  \def\pp@pagectr#1#2#3#4{}
+  \makeatother
+\else
+  \usepackage{perpage}
+  \MakePerPage{footnote}
+  \renewcommand{\thefootnote}{%
+    \ifnum\value{footnote}<10 \fnsymbol{footnote}%
+    \else\arabic{footnote}\fi}
+\fi
+\end{Verbatim}
+
+There are only nine footnote symbols, so the last part switches to numbers after the ninth footnote on a page.
+
 The settings in \smalltt{lib/ebook-layout.cfg} change only the eBook, because only \smalltt{make4ht} reads that file.
 For bigger differences, such as whole sections in only one version, Clemens Lode's template for books and eBooks takes conditionals further \citep{lode2019better}.
 
