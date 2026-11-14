@@ -1,0 +1,73 @@
+%%
+\chapter{Pushing to Publication}
+\label{chapter:publication}
+
+Nearly all of this book is about making and checking eBook files, which is like a software development process: you run the build over and over, and check that each change had the effect you wanted.
+Publishing is more like pushing to production.
+You sign up for accounts, fill in forms, upload files, and eventually click `submit'.
+This chapter covers the parts that are easy to put off: the ISBN, copyright, and the upload itself.
+Prices, fees, and royalty rates change, so this chapter doesn't give them: check the current terms when you publish.
+
+%%
+\section{ISBN}
+\label{sec:isbn}
+
+An ISBN\index{ISBN} (International Standard Book Number) identifies one edition of a book in one format.
+Kindle eBooks don't need one, because Amazon gives each book its own number, called an ASIN.
+But an ASIN only means something inside Amazon, while bookshops, libraries, and other retailers everywhere recognize an ISBN.
+The first version of this book, \latex to eBook 2021, had no ISBN, but this one does.
+
+Each country has its own ISBN agency, and some give ISBNs away free.
+In the USA, the agency is Bowker, through its MyIdentifiers site at \surl{https://www.myidentifiers.com}.
+Each format of a book (eBook, paperback, hardcover) needs its own ISBN, and a single ISBN costs much more than one from a pack of ten, so a pack is often worth buying.
+KDP offers free ISBNs for paperbacks, but those list Amazon as the publisher and can't be used anywhere else.
+
+After getting an ISBN, fill in the book's title, format, and other details for it on the agency's site, so that the number points to this book.
+When you upload the book to KDP, enter the ISBN in the eBook details, with the same publisher name that the ISBN is registered to.
+Then print the ISBN in the book itself, on the copyright page.
+
+%%
+\section{The Copyright Page}
+
+Printed books usually have a copyright page on the back of the title page, with the copyright notice, the edition, and the ISBN.
+This book's copyright page is in \smalltt{copyright\_page.tex}, which \smalltt{ebookbook.tex} includes just after the title page.
+This book is about eBooks, so it has no paperback edition.
+But a paperback needs a different ISBN from the eBook, so if you publish both, a conditional (Section~\ref{sec:conditionals}) can print the right one in each version:
+
+\begin{Verbatim}[fontsize=\small]
+\ifdefined\HCode
+  ISBN 979-8-9933140-4-4 (eBook)
+\else
+  ISBN YOUR-PAPERBACK-ISBN (paperback)
+\fi
+\end{Verbatim}
+
+%%
+\section{Copyright}
+
+Copyright\index{copyright} in your book belongs to you as soon as you write it, without registering anything.
+In the USA, you can also register the copyright with the U.S. Copyright Office, online at \surl{https://www.copyright.gov}, for a small fee.
+Registration is optional, but you need it before you can sue anyone for copying your book, and registering within three months of publication lets you claim more damages and your legal costs if you do.
+I didn't register the first version of this book.
+
+%%
+\section{Uploading and Updating}
+
+Publishing with Amazon's Kindle Direct Publishing (KDP) is mostly form-filling.
+You upload the \smalltt{.epub} file and the cover image, and choose a price and a royalty option.
+The royalty options depend on the price, and they change from time to time, so read the current terms when you get there.
+Look for chances to preview your book during the process.
+It takes at least a few hours before your book is live, and it may take longer to start appearing in search results.
+
+You can upload a new version of your book at any time, and minor updates go through in the same way as the first submission.
+With the first version of this book, I submitted two revisions within a few hours, because once I was reading the book `for real' on my phone, there were a couple of typos and small mistakes to fix.
+So I updated the live version a few times before even telling people it was available.
+
+%%
+\section{Keep the File Small}
+
+Amazon charges a delivery fee by file size for books sold at the higher royalty rate (Section~\ref{sec:image_files}).
+Smaller image files make the book cheaper for everyone, and leave more of each sale for you.
+
+If you found this book in the Kindle store and can read this as a result, it worked.
+And if I could do this, you can too!
