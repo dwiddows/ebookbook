@@ -42,6 +42,22 @@ The build rewrites each entry as its own paragraph, with chapters in bold and se
 The contents page at the start of this book shows the result.
 
 %%
+\section{The Chapter Menu on eReaders}
+
+Besides the contents page, eReaders have their own menu for jumping to a chapter.\index{chapter menu}
+\smalltt{ebook-convert} builds this menu from the headings in the HTML, and it needs to be told which headings to use.
+\smalltt{make4ht} writes chapter titles as \sverb|<h2>| headings and section titles as \sverb|<h3>|, so \smalltt{build.sh} passes these options:
+
+\begin{Verbatim}[fontsize=\small]
+--level1-toc "//h:h2"
+--level2-toc "//h:h3"
+\end{Verbatim}
+
+The first line makes each chapter an entry in the menu, and the second nests each chapter's sections underneath it, so the menu has two levels.
+\smalltt{build.sh} adds a little more to each line, so that only real chapter and section headings are used, and empty ones are skipped.
+If the options don't match any headings, \smalltt{ebook-convert} falls back to one long list of every link on the contents page.
+
+%%
 \section{Image Files}
 \label{sec:image_files}
 

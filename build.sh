@@ -86,8 +86,7 @@ elif [[ $# -eq 0 ]]
        ebook-convert $MAINFILE.html $MAINFILE.epub --cover $COVER --title "$TITLE" --authors "$AUTHOR" --language English \
            --use-auto-toc \
            --level1-toc "//h:h2[contains(@class,'hapterHead') or @class='addchapHead'][normalize-space()]" \
-           --level2-toc "//h:h3[@class='sectionHead' or @class='likesectionHead']" --level3-toc "" \
-           --toc-filter "^(References|Bibliography|\[?\d+(\.\d+)*\]?)$" > /dev/null \
+           --level2-toc "//h:h3[@class='sectionHead' or @class='likesectionHead']" --level3-toc "" > /dev/null \
            && echo "Wrote build/$MAINFILE.epub"
 
 # This is the build cleanup process, from running "./build.sh clean".
