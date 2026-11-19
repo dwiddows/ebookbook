@@ -81,9 +81,12 @@ elif [[ $# -eq 0 ]]
            magick $COVERIMAGE -background white -alpha remove -alpha off -quality 85 -strip epub_images/epub_cover.jpg
            COVER=epub_images/epub_cover.jpg
        fi
-       # Chapters are <h2> in make4ht's output; they make the epub's navigation menu.
+       # The epub's navigation menu (Kindle's Go To): chapters are <h2> in make4ht's output,
+       # with their sections as <h3> nested underneath. Empty headings are skipped.
        ebook-convert $MAINFILE.html $MAINFILE.epub --cover $COVER --title "$TITLE" --authors "$AUTHOR" --language English \
-           --use-auto-toc --level1-toc "//h:h2" --level2-toc "" --level3-toc "" \
+           --use-auto-toc \
+           --level1-toc "//h:h2[contains(@class,'hapterHead') or @class='addchapHead'][normalize-space()]" \
+           --level2-toc "//h:h3[@class='sectionHead' or @class='likesectionHead']" --level3-toc "" \
            --toc-filter "^(References|Bibliography|\[?\d+(\.\d+)*\]?)$" > /dev/null \
            && echo "Wrote build/$MAINFILE.epub"
 

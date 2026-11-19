@@ -28,7 +28,8 @@ The build switches them off, so the matrices in the Equations section of Chapter
 \section{Footnotes}
 
 Footnotes made with \sverb|\footnote{...}| can appear as pop-ups on a Kindle.\index{footnotes}\footnote{This is a footnote.
-On a Kindle, it should appear in a pop-up over the page.}
+On a Kindle, it appears in a pop-up over the page.
+In eReaders without pop-ups, such as Apple Books, it appears at the back of the book, and its number links back to the text.}
 For that, the marker in the text and the note must link to each other.
 \smalltt{make4ht} makes only the link from the marker, so the build adds the link back.
 On eReaders without pop-ups, footnotes become endnotes at the back of the book, so ideally each footnote should be written to make sense on its own.
