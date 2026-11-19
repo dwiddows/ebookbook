@@ -55,7 +55,17 @@ Besides the contents page, eReaders have their own menu for jumping to a chapter
 
 The first line makes each chapter an entry in the menu, and the second nests each chapter's sections underneath it, so the menu has two levels.
 \smalltt{build.sh} adds a little more to each line, so that only real chapter and section headings are used, and empty ones are skipped.
-If the options don't match any headings, \smalltt{ebook-convert} falls back to one long list of every link on the contents page.
+Without these options, \smalltt{ebook-convert} makes one flat list, with every heading at the same level and no numbers, followed by other links in the book, such as citations and section numbers.
+Figure~\ref{fig:chapter_menu} shows both menus for this book.
+
+\begin{figure}
+\begin{center}
+  \includegraphics[width=\linewidth]{images/chapter_menu.png}
+  \htbr
+  \caption{This book's chapter menu, with two levels and as one flat list}
+  \label{fig:chapter_menu}
+\end{center}
+\end{figure}
 
 %%
 \section{Image Files}
