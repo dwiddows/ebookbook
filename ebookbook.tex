@@ -7,6 +7,9 @@
 \input{lib/packages}
 \input{lib/commands}
 
+% Captions a little smaller than the body text, like footnotes.
+\addtokomafont{caption}{\small}
+
 % This line stops the insertion of extra blank pages between chapters.
 \ifdefined\HCode{\KOMAoptions{twoside=false}} \fi
 

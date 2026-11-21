@@ -12,9 +12,12 @@ except that every MathML table (matrix) gets explicit rowlines/columnlines/frame
 "none": tex4ht writes rowlines='', which Kindle draws as rules between rows;
 \big( / \bigg( brackets become stretchy fences, like \left( \right); and
 equation link targets move out of the MathML, where Kindle can't reach them.
+Converted math in small text, such as captions and footnotes, gets the same
+font size as the words just before it.
 
 Usage (called from epub_postprocess.sh): python3 epub_inline_math.py main.html
 """
+import os
 import re
 import sys
 import unicodedata
@@ -214,16 +217,43 @@ def no_rules(match):
     return f"<mtable{attrs} rowlines='none' columnlines='none' frame='none'>"
 
 
+# tex4ht sets small text (captions, footnotes) in sized spans such as
+# <span class='cmr-9'>, and leaves the math between them at full size.
+SIZED_TEXT = re.compile(r"""<span class='([\w-]+)'>(?:(?!</?span).)*</span>((?:\s|<!--.*?-->)*)<span class="inlinemath">""", re.S)
+CSS_SIZE = re.compile(r"^\.([\w-]+)\{font-size:([\d.]+%)", re.M)
+
+
+def text_sizes(html, path):
+    """The font size of each sized text class, from the stylesheet make4ht wrote."""
+    link = re.search(r"<link[^>]*href='([^']+\.css)'", html)
+    if not link:
+        return {}
+    with open(os.path.join(os.path.dirname(path), link.group(1)), encoding='utf-8') as f:
+        return {cls: size for cls, size in CSS_SIZE.findall(f.read()) if size != '100%'}
+
+
+def match_size(match, sizes):
+    size = sizes.get(match.group(1))
+    if not size:
+        return match.group(0)
+    match_size.done += 1
+    return match.group(0)[:-1] + f' style="font-size:{size}">'
+
+match_size.done = 0
+
+
 if __name__ == '__main__':
     path = sys.argv[1]
     with open(path, encoding='utf-8') as f:
         html = f.read()
     html = INLINE_MATH.sub(replace, html)
+    sizes = text_sizes(html, path)
+    html = SIZED_TEXT.sub(lambda m: match_size(m, sizes), html)
     html, tables = MTABLE.subn(no_rules, html)
     html, fences = SIZED_FENCE.subn(stretchy, html)
     html = BLOCK_MATH.sub(anchor_labels, html)
     with open(path, 'w', encoding='utf-8') as f:
         f.write(html)
     print(f'epub_inline_math: {replace.done} inline formulas converted to HTML, '
-          f'{replace.kept} left as MathML; {tables} matrices set to no rules; '
+          f'{replace.kept} left as MathML; {match_size.done} sized to match small text; {tables} matrices set to no rules; '
           f'{fences} big brackets made stretchy; {anchor_labels.moved} equation link targets moved out of MathML')
